@@ -1,77 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Mahasiswa</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .card {
-            background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 600px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-        .info {
-            flex: 3;
-            padding: 10px;
-        }
-        .info h3 {
-            margin-top: 0;
-            color: #333;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
-        }
-        .info p {
-            margin: 5px 0;
-            background: #e7f3fe;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-        .photo {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #ddd;
-            border-radius: 10px;
-            width: 100px;
-            height: 100px;
-            text-align: center;
-            font-size: 14px;
-            color: #555;
-        }
-    </style>
-</head>
-<body>
-    <div class="card">
-        <div class="info">
-            <h3>Data Mahasiswa</h3>
-            <p><strong>Nama:</strong> {{ $student['name'] }}</p>
-            <p><strong>Angkatan:</strong> {{ $student['batch'] }}</p>
-            <p><strong>NIM:</strong> {{ $student['nim'] }}</p>
-            <p><strong>Username:</strong> {{ $student['username'] }}</p>
-            <p><strong>Email Akademik:</strong> {{ $student['email'] }}</p>
-            <p><strong>Kelas:</strong> {{ $student['class'] }}</p>
-            <p><strong>Program Studi:</strong> {{ $student['program'] }}</p>
-            <p><strong>Wali Kelas:</strong> {{ $student['mentor'] }}</p>
-        </div>
-        <div class="photo">
-            foto profil mahasiswa
+@extends('layouts.app')
+
+@section('title', 'Profil Mahasiswa')
+
+@section('content')
+<div class="container mt-5">
+    <div class="card shadow-lg border-0" style="border-radius: 15px; background-color: #f0f8ff;">
+        <div class="card-body p-4">
+            <h3 class="card-title text-center mb-4" style="border-bottom: 2px solid #ddd; padding-bottom: 10px; color: #333;">
+                Data Mahasiswa
+            </h3>
+            <div class="row">
+                <!-- Kolom Informasi -->
+                <div class="col-md-6">
+                    <div class="mb-3 ms-5">
+                        <strong>Nama:</strong> 
+                        <span class="bg-light p-2 rounded">{{ $student['name'] }}</span>
+                    </div>
+                    <div class="mb-3 ms-5">
+                        <strong>Angkatan:</strong> 
+                        <span class=" bg-light p-2 rounded">{{ $student['batch'] }}</span>
+                    </div>
+                    <div class="mb-3 ms-5">
+                        <strong>NIM:</strong> 
+                        <span class=" bg-light p-2 rounded">{{ $student['nim'] }}</span>
+                    </div>
+                    <div class="mb-3 ms-5">
+                        <strong>Username:</strong> 
+                        <span class=" bg-light p-2 rounded">{{ $student['username'] }}</span>
+                    </div>
+                    <div class="mb-3 ms-5">
+                        <strong>Email Akademik:</strong> 
+                        <span class=" bg-light p-2 rounded">{{ $student['email'] }}</span>
+                    </div>
+                    <div class="mb-3 ms-5">
+                        <strong>Kelas:</strong> 
+                        <span class=" bg-light p-2 rounded">{{ $student['class'] }}</span>
+                    </div>
+                    <div class="mb-3 ms-5">
+                        <strong>Program Studi:</strong> 
+                        <span class=" bg-light p-2 rounded">{{ $student['program'] }}</span>
+                    </div>
+                    <div class="mb-3 ms-5">
+                        <strong>Wali Kelas:</strong> 
+                        <span class=" bg-light p-2 rounded">{{ $student['mentor'] }}</span>
+                    </div>
+                </div>
+                <!-- Kolom Foto Profil -->
+                <div class="col-md-6 d-flex justify-content-center align-items-center">
+                    <div class="bg-secondary text-white d-flex justify-content-center align-items-center rounded" 
+                        style="width: 200px; height: 200px; font-size: 14px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                        Foto Profil Mahasiswa
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</body>
-</html>
+</div>
+@endsection
