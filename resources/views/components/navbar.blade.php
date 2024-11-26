@@ -1,5 +1,5 @@
-<nav class="app-header navbar navbar-expand bg-light shadow-sm">
-    <div class="container-fluid">
+<nav class="app-header navbar navbar-expand" style="background: #E4E7E8; box-shadow: 0px 6px 8px rgba(0, 111, 255, 0.25);">   
+     <div class="container-fluid">
         <!-- Sidebar toggle button -->
         <ul class="navbar-nav">
             <li class="nav-item">
