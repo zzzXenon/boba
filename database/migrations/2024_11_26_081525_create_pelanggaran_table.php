@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('pelanggaran', function (Blueprint $table) {
             $table->id();
-            $table->string('angkatan');
-            $table->string('prodi');
-            $table->string('nim');
             $table->string('nama');
-            $table->text('detail_pelanggaran');
+            $table->string('nim');
+            $table->string('prodi');
+            $table->string('poin');
+            $table->text('deskripsi')->nullable();
             $table->timestamps();
         });
-    }    
+    }
 
     /**
      * Reverse the migrations.
