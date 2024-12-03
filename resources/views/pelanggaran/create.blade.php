@@ -35,9 +35,7 @@
             <label for="nim" class="form-label">NIM:</label>
             <select name="nim" id="nim" class="form-select">
                 <option value="">Pilih NIM</option>
-                @foreach ($nims as $nim)
-                    <option value="{{ $nim }}">{{ $nim }}</option>
-                @endforeach
+                <!-- Opsi NIM akan diupdate secara dinamis -->
             </select>
         </div>
 
@@ -46,9 +44,7 @@
             <label for="nama" class="form-label">Nama:</label>
             <select name="nama" id="nama" class="form-select">
                 <option value="">Pilih Nama</option>
-                @foreach ($names as $name)
-                    <option value="{{ $name }}">{{ $name }}</option>
-                @endforeach
+                <!-- Opsi Nama akan diupdate secara dinamis -->
             </select>
         </div>
 
@@ -64,4 +60,78 @@
         </div>
     </form>
 </div>
+
+@section('scripts')
+<script>
+    // Ketika dropdown angkatan atau prodi berubah
+    document.getElementById('angkatan').addEventListener('change', updateMahasiswaOptions);
+    document.getElementById('prodi').addEventListener('change', updateMahasiswaOptions);
+
+    // Ketika dropdown nim atau nama berubah
+    document.getElementById('nim').addEventListener('change', updateNameFromNim);
+    document.getElementById('nama').addEventListener('change', updateNimFromName);
+
+    let mahasiswaData = [];  // Menyimpan data mahasiswa yang sudah diambil
+
+    function updateMahasiswaOptions() {
+        // Ambil nilai dari dropdown angkatan dan prodi
+        const angkatan = document.getElementById('angkatan').value;
+        const prodi = document.getElementById('prodi').value;
+
+        // Cek apakah kedua dropdown angkatan dan prodi sudah dipilih
+        if (angkatan && prodi) {
+            // Kirim request AJAX untuk mendapatkan data mahasiswa berdasarkan angkatan dan prodi
+            fetch(`/pelanggaran/get-mahasiswa?angkatan=${angkatan}&prodi=${prodi}`)
+                .then(response => response.json())
+                .then(data => {
+                    mahasiswaData = data;  // Simpan data mahasiswa yang diterima
+                    // Update opsi di dropdown NIM dan Nama
+                    updateDropdown('nim', data, 'nim');
+                    updateDropdown('nama', data, 'nama');
+                })
+                .catch(error => console.log('Error:', error));
+        }
+    }
+
+    // Fungsi untuk mengupdate dropdown berdasarkan data yang diterima
+    function updateDropdown(dropdownId, data, key) {
+        const dropdown = document.getElementById(dropdownId);
+        // Kosongkan semua opsi yang ada sebelumnya
+        dropdown.innerHTML = `<option value="">Pilih ${dropdownId.charAt(0).toUpperCase() + dropdownId.slice(1)}</option>`;
+
+        // Tambahkan opsi baru
+        data.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item[key];
+            option.textContent = item[key];  // Tampilkan value pada opsi
+            dropdown.appendChild(option);
+        });
+    }
+
+    // Fungsi untuk update nama berdasarkan NIM
+    function updateNameFromNim() {
+        const nim = document.getElementById('nim').value;
+        
+        // Cari nama yang sesuai dengan NIM
+        const selectedMahasiswa = mahasiswaData.find(item => item.nim === nim);
+
+        if (selectedMahasiswa) {
+            document.getElementById('nama').value = selectedMahasiswa.nama;
+        }
+    }
+
+    // Fungsi untuk update NIM berdasarkan nama
+    function updateNimFromName() {
+        const nama = document.getElementById('nama').value;
+
+        // Cari NIM yang sesuai dengan nama
+        const selectedMahasiswa = mahasiswaData.find(item => item.nama === nama);
+
+        if (selectedMahasiswa) {
+            document.getElementById('nim').value = selectedMahasiswa.nim;
+        }
+    }
+</script>
+@endsection
+
 @endsection

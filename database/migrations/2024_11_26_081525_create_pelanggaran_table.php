@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('prodi');
             $table->string('nim');
             $table->string('nama');
-            $table->text('detail_pelanggaran');
+            $table->text('detail_pelanggaran')->nullable();
             $table->timestamps();
         });
     }    

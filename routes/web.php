@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ViolationController;
 use App\Http\Controllers\PelanggaranController;
+use App\Models\Pelanggaran;
 
 // Rute untuk halaman utama (opsional, jika diperlukan)
 Route::get('/', function () {
@@ -15,5 +16,9 @@ Route::get('/parent/informationPage', [StudentController::class, 'showProfile'])
 
 Route::get('/parent/pelanggaranPage', [ViolationController::class, 'index']);
 
+Route::get('/pelanggaran', [PelanggaranController::class, 'index'])->name('pelanggaran.index');
 Route::get('/pelanggaran/create', [PelanggaranController::class, 'create'])->name('pelanggaran.create');
-Route::post('/pelanggaran/store', [PelanggaranController::class, 'store'])->name('pelanggaran.store');
+Route::post('/pelanggaran', [PelanggaranController::class, 'store'])->name('pelanggaran.store');
+
+Route::get('/pelanggaran/get-mahasiswa', [PelanggaranController::class, 'getMahasiswa'])->name('pelanggaran.getMahasiswa');
+
