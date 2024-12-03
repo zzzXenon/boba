@@ -18,7 +18,7 @@
                     </div>
                     <div  class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
                         <strong>Angkatan:</strong> 
-                        <span class="p-2 rounded">{{ $student['batch'] }}</span>
+                        <span class="p-2 rounded">{{ $student['angkatan'] }}</span>
                     </div>
                     <div  class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
                         <strong>NIM:</strong> 
@@ -34,15 +34,15 @@
                     </div>
                     <div  class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
                         <strong>Kelas:</strong> 
-                        <span class="p-2 rounded">{{ $student['class'] }}</span>
+                        <span class="p-2 rounded">{{ $student['kelas'] }}</span>
                     </div>
                     <div  class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
                         <strong>Program Studi:</strong> 
-                        <span class="p-2 rounded">{{ $student['program'] }}</span>
+                        <span class="p-2 rounded">{{ $student['prodi'] }}</span>
                     </div>
                     <div  class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
                         <strong>Wali Kelas:</strong> 
-                        <span class="p-2 rounded">{{ $student['mentor'] }}</span>
+                        <span class="p-2 rounded">{{ $student['wali'] }}</span>
                     </div>
                 </div>
                 <!-- Kolom Foto Profil -->

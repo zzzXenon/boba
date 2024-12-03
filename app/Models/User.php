@@ -3,18 +3,29 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    use HasFactory, Notifiable;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
+        'nama',
         'username',
         'email',
         'password',
+        'angkatan',
+        'nim',
+        'email',
+        'kelas',
+        'prodi',
+        'wali',
         'role',
         'status',
     ];
@@ -37,6 +48,27 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'status' => 'integer',
     ];
+
+    public function getVisibleAttributesByRole($role)
+    {
+        if ($role === 'Orang Tua') {
+            return $this->only([
+                'nama',
+                'username',
+                'angkatan',
+                'nim',
+                'email',
+                'kelas',
+                'prodi',
+                'wali',
+            ]);
+        }
+
+        // For other roles, return only limited fields
+        return $this->only([
+            'nama',
+            'username',
+        ]);
+    }
 }

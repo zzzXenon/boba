@@ -19,5 +19,13 @@ class Pelanggaran extends Model
         'nim', 
         'nama', 
         'detail_pelanggaran'
+    protected $table = 'pelanggaran';
+
+    protected $fillable = [
+        'nama',
+        'nim',
+        'prodi',
+        'poin',
+        'deskripsi',
     ];
 }

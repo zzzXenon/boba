@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Pelanggaran;
 use App\Models\PoinPelanggaran; // Pastikan Anda mengimport model PoinPelanggaran
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PelanggaranController extends Controller
 {
@@ -84,5 +86,38 @@ class PelanggaranController extends Controller
 
         // Redirect ke halaman daftar pelanggaran atau halaman sukses
         return redirect()->route('pelanggaran.index')->with('success', 'Data pelanggaran berhasil disimpan');
+    public function showInfoPelanggaran()
+    {
+        // Fetch all data from the pelanggaran table
+        $pelanggarans = DB::table('pelanggaran')->get();
+
+        // Pass the data to the Blade view
+        return view('infoPelanggaran', compact('pelanggarans'));
+    }
+
+    public function login(Request $request)
+    {
+        // Validate incoming request
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        // Check if the username and password match database records
+        $user = DB::table('users')
+            ->where('username', $request->username)
+            ->where('password', $request->password) // Store passwords securely in production!
+            ->first();
+
+        if ($user) {
+            // Store user information in session
+            session(['user' => $user]);
+
+            // Redirect to infoPelanggaran page
+            return redirect()->route('info.pelanggaran');
+        }
+
+        // If authentication fails, redirect back with an error
+        return back()->withErrors(['login_failed' => 'Invalid username or password.']);
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -44,55 +45,62 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        // Log input for debugging (optional)
+        // Log the input for debugging (optional)
         Log::info('Login attempt:', ['username' => $request->username]);
 
         try {
-            // Send API request to the external authentication endpoint
-            $client = new \GuzzleHttp\Client(['verify' => false]);
+            // Retrieve the user from the database by username
+            $user = User::where('username', $request->username)->first();
 
-            $response = $client->post(env('EXTERNAL_API_URL', 'https://cis-dev.del.ac.id') . '/jwt-api/do-auth', [
-                'form_params' => [
-                    'username' => $request->username,
-                    'password' => $request->password,
-                ],
-                'headers' => [
-                    'Accept' => 'application/json',
-                ],
-            ]);
+            if ($user && Hash::check($request->password, $user->password)) {
+                // Log the successful login
+                Log::info('Login successful:', ['user' => $user->username]);
 
-            // Decode the API response
-            $data = json_decode($response->getBody()->getContents(), true);
-
-            if ($data && isset($data['result']) && $data['result'] === true) {
-                // Extract token and user information
-                $token = $data['token'];
-                $user = $data['user'];
-
-                // Store token and user info in session
-                session(['api_token' => $token]);
-                session(['user_api' => $user]);
-
-                Log::info('Login successful:', ['user' => $user]);
+                // Log in the user using Laravel's Auth
+                Auth::login($user);
 
                 // Redirect based on user role
-                if (in_array($user['role'], ['Dosen', 'Staff', 'Authenticated User'])) {
-                    return redirect()->route('admin')->with('success', 'Login sebagai admin berhasil!');
-                } else {
-                    return redirect()->route('beranda')->with('success', 'Login berhasil!');
+                if (in_array($user->role, ['Orang Tua'])) {
+                    return redirect()->route('admin')->with('success', 'Login sebagai Orang Tua berhasil');
+                } else if (in_array($user->role, ['Keasramaan'])) {
+                    return redirect()->route('admin')->with('success', 'Login sebagai Keasramaan berhasil');
+                } else if (in_array($user->role, ['Kemahasiswaan'])) {
+                    return redirect()->route('admin')->with('success', 'Login sebagai Kemahasiswaan berhasil');
+                } else if (in_array($user->role, ['Dosen'])) {
+                    return redirect()->route('beranda')->with('success', 'Login sebagai Dosen berhasil');
                 }
             }
 
             // Handle failed authentication
-            Log::error('Authentication failed:', ['response' => $data]);
+            Log::warning('Login failed:', ['username' => $request->username]);
             return back()->withErrors(['login' => 'Username atau Password salah.']);
         } catch (\Exception $e) {
-            // Handle errors during the API call
-            Log::error('API Error:', ['message' => $e->getMessage()]);
-            return back()->withErrors(['login' => 'Terjadi kesalahan saat menghubungi API.']);
+            // Handle errors during authentication
+            Log::error('Login error:', ['message' => $e->getMessage()]);
+            return back()->withErrors(['login' => 'Terjadi kesalahan saat login.']);
         }
     }
 
+    public function processOrangTuaLogin(Request $request)
+    {
+        // Validate the input
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        // Attempt login for the 'orangtua' guard
+        if (Auth::guard('orangtua')->attempt([
+            'username' => $request->username,
+            'password' => $request->password,
+        ])) {
+            // Redirect to the student info page if successful
+            return redirect()->route('info.mahasiswa')->with('success', 'Login berhasil!');
+        }
+
+        // If login fails, redirect back with an error message
+        return back()->withErrors(['login' => 'Username atau Password salah.']);
+    }
 
     public function logout()
     {

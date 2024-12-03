@@ -112,4 +112,17 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+    'guards' => [
+        'orangtua' => [
+            'driver' => 'session',
+            'provider' => 'users', // Ensure this points to 'users'
+        ],
+    ],
+    'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class, // Ensure this points to your User model
+        ],
+    ],
+
 ];
