@@ -18,6 +18,5 @@ Route::get('/parent/pelanggaranPage', [ViolationController::class, 'index']);
 Route::get('/pelanggaran', [PelanggaranController::class, 'index'])->name('pelanggaran.index');
 Route::get('/pelanggaran/create', [PelanggaranController::class, 'create'])->name('pelanggaran.create');
 Route::post('/pelanggaran/store', [PelanggaranController::class, 'store'])->name('pelanggaran.store');
+Route::get('/pelanggaran/get-pelanggaran', [PelanggaranController::class, 'getPelanggaran'])->name('pelanggaran.get-pelanggaran');
 
-
-/// akfkjasgfkjajfajgfjkasgfkaskfgakgfkas

@@ -48,10 +48,15 @@
             </select>
         </div>
 
-        <!-- Detail Pelanggaran -->
+        <!-- Poin Pelanggaran Dropdown (dari tabel poin_pelanggaran) -->
         <div class="mb-3">
-            <label for="detail_pelanggaran" class="form-label">Detail Pelanggaran:</label>
-            <textarea name="detail_pelanggaran" id="detail_pelanggaran" rows="4" class="form-control"></textarea>
+            <label for="poin_pelanggaran" class="form-label">Poin Pelanggaran:</label>
+            <select name="poin_pelanggaran" id="poin_pelanggaran" class="form-select">
+                <option value="">Pilih Poin Pelanggaran</option>
+                @foreach ($poinPelanggaran as $poin)
+                    <option value="{{ $poin->id }}">{{ $poin->nama_pelanggaran }} ({{ $poin->poin }} Poin)</option>
+                @endforeach
+            </select>
         </div>
 
         <!-- Submit Button -->
@@ -60,6 +65,7 @@
         </div>
     </form>
 </div>
+@endsection
 
 @section('scripts')
 <script>
@@ -93,45 +99,35 @@
         }
     }
 
-    // Fungsi untuk mengupdate dropdown berdasarkan data yang diterima
-    function updateDropdown(dropdownId, data, key) {
-        const dropdown = document.getElementById(dropdownId);
-        // Kosongkan semua opsi yang ada sebelumnya
-        dropdown.innerHTML = `<option value="">Pilih ${dropdownId.charAt(0).toUpperCase() + dropdownId.slice(1)}</option>`;
-
-        // Tambahkan opsi baru
-        data.forEach(item => {
+    // Fungsi untuk memperbarui dropdown berdasarkan data yang diterima
+    function updateDropdown(elementId, data, valueKey) {
+        const dropdown = document.getElementById(elementId);
+        dropdown.innerHTML = `<option value="">Pilih ${elementId.charAt(0).toUpperCase() + elementId.slice(1)}</option>`;  // Reset dropdown
+        
+        data.forEach(mahasiswa => {
             const option = document.createElement('option');
-            option.value = item[key];
-            option.textContent = item[key];  // Tampilkan value pada opsi
+            option.value = mahasiswa[valueKey];
+            option.textContent = mahasiswa.nama;
             dropdown.appendChild(option);
         });
     }
 
-    // Fungsi untuk update nama berdasarkan NIM
+    // Fungsi untuk update nama dari NIM
     function updateNameFromNim() {
-        const nim = document.getElementById('nim').value;
-        
-        // Cari nama yang sesuai dengan NIM
-        const selectedMahasiswa = mahasiswaData.find(item => item.nim === nim);
-
+        const selectedNim = document.getElementById('nim').value;
+        const selectedMahasiswa = mahasiswaData.find(mahasiswa => mahasiswa.nim == selectedNim);
         if (selectedMahasiswa) {
             document.getElementById('nama').value = selectedMahasiswa.nama;
         }
     }
 
-    // Fungsi untuk update NIM berdasarkan nama
+    // Fungsi untuk update NIM dari nama
     function updateNimFromName() {
-        const nama = document.getElementById('nama').value;
-
-        // Cari NIM yang sesuai dengan nama
-        const selectedMahasiswa = mahasiswaData.find(item => item.nama === nama);
-
+        const selectedNama = document.getElementById('nama').value;
+        const selectedMahasiswa = mahasiswaData.find(mahasiswa => mahasiswa.nama == selectedNama);
         if (selectedMahasiswa) {
             document.getElementById('nim').value = selectedMahasiswa.nim;
         }
     }
 </script>
-@endsection
-
 @endsection
