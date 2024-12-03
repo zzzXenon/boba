@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ViolationController;
 use App\Http\Controllers\PelanggaranController;
@@ -20,8 +21,6 @@ Route::get('/pelanggaran/create', [PelanggaranController::class, 'create'])->nam
 Route::post('/pelanggaran/store', [PelanggaranController::class, 'store'])->name('pelanggaran.store');
 Route::get('/pelanggaran/get-pelanggaran', [PelanggaranController::class, 'getPelanggaran'])->name('pelanggaran.get-pelanggaran');
 
-<<<<<<< Updated upstream
-=======
 // Main login page
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 
@@ -42,4 +41,3 @@ Route::post('/login-ortu', [AuthController::class, 'processOrangTuaLogin'])->nam
 Route::post('/login', [PelanggaranController::class, 'login'])->name('login.submit');
 
 Route::get('/info-pelanggaran', [PelanggaranController::class, 'showInfoPelanggaran'])->name('info.pelanggaran')->middleware('auth');
->>>>>>> Stashed changes
