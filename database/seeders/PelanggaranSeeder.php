@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+<<<<<<< Updated upstream
 use Faker\Factory as Faker;
 
 class PelanggaranSeeder extends Seeder
@@ -55,6 +56,8 @@ class PelanggaranSeeder extends Seeder
                 ]);
             }
         }
+=======
+
 class PelanggaranSeeder extends Seeder
 {
     public function run()
@@ -75,5 +78,6 @@ class PelanggaranSeeder extends Seeder
                 'updated_at' => now(),
             ],
         ]);
+>>>>>>> Stashed changes
     }
 }

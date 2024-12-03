@@ -7,7 +7,6 @@ use App\Http\Controllers\PelanggaranController;
 
 // Rute untuk halaman utama (opsional, jika diperlukan)
 Route::get('/', function () {
-    return view('loginMain');
     return view('home');
 })->name('home');
 
@@ -21,6 +20,8 @@ Route::get('/pelanggaran/create', [PelanggaranController::class, 'create'])->nam
 Route::post('/pelanggaran/store', [PelanggaranController::class, 'store'])->name('pelanggaran.store');
 Route::get('/pelanggaran/get-pelanggaran', [PelanggaranController::class, 'getPelanggaran'])->name('pelanggaran.get-pelanggaran');
 
+<<<<<<< Updated upstream
+=======
 // Main login page
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 
@@ -41,3 +42,4 @@ Route::post('/login-ortu', [AuthController::class, 'processOrangTuaLogin'])->nam
 Route::post('/login', [PelanggaranController::class, 'login'])->name('login.submit');
 
 Route::get('/info-pelanggaran', [PelanggaranController::class, 'showInfoPelanggaran'])->name('info.pelanggaran')->middleware('auth');
+>>>>>>> Stashed changes

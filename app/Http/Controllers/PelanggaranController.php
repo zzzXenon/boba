@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class PelanggaranController extends Controller
 {
+<<<<<<< Updated upstream
     // Menampilkan daftar pelanggaran
     public function index()
     {
@@ -86,6 +87,7 @@ class PelanggaranController extends Controller
 
         // Redirect ke halaman daftar pelanggaran atau halaman sukses
         return redirect()->route('pelanggaran.index')->with('success', 'Data pelanggaran berhasil disimpan');
+=======
     public function showInfoPelanggaran()
     {
         // Fetch all data from the pelanggaran table
@@ -119,5 +121,6 @@ class PelanggaranController extends Controller
 
         // If authentication fails, redirect back with an error
         return back()->withErrors(['login_failed' => 'Invalid username or password.']);
+>>>>>>> Stashed changes
     }
 }
