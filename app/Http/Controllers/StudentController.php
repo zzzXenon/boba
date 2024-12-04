@@ -11,16 +11,16 @@ class StudentController extends Controller
       // Data mahasiswa (gunakan data contoh atau dari database)
       $student = [
           'name' => 'Mario Agustin Sijabat',
-          'batch' => 2022,
+          'angkatan' => 2022,
           'nim' => '11S22030',
           'username' => 'ifs22030',
           'email' => 'ifs22030@students.del.ac.id',
-          'class' => '13IF2',
-          'program' => 'S1 Informatika',
-          'mentor' => 'Iustisia Natalia Simbolon, S.Kom., M.T.',
+          'kelas' => '13IF2',
+          'prodi' => 'S1 Informatika',
+          'wali' => 'Iustisia Natalia Simbolon, S.Kom., M.T.',
       ];
   
       // Kirim data ke view
-      return view('parent.informationPage', compact('student'));
+      return view('view-1.infoMahasiswa', compact('student'));
   }  
 }

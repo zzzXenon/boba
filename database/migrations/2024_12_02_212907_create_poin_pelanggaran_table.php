@@ -13,7 +13,7 @@ class CreatePoinPelanggaranTable extends Migration
      */
     public function up()
     {
-        Schema::create('poin_pelanggaran', function (Blueprint $table) {
+        Schema::create('poin_pelanggarans', function (Blueprint $table) {
             $table->id();
             $table->string('nama_pelanggaran');
             $table->integer('poin');

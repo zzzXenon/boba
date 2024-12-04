@@ -74,7 +74,7 @@ class PoinPelanggaranSeeder extends Seeder
             ['nama_pelanggaran' => 'Berkelahi dengan teman', 'poin' => 25],
             ['nama_pelanggaran' => 'Menyimpan dan membawa kartu remi, domino, uno dan sejenisnya yang dapat dipergunakan untuk kegiatan perjudian', 'poin' => 25],
             ['nama_pelanggaran' => 'Mengepos status di media sosial terkait berita yang tidak dapat dipertanggungjawabkan.', 'poin' => 25],
-	    ['nama_pelanggaran' => 'Memberikan keterangan yang tidak benar tentang kampus IT Del kepada keluarga/orangtua dan sebaliknya meminta keluarga/orangtua memberikan informasi yang tidak benar ke kampus IT Del', 'poin' => 30],
+	        ['nama_pelanggaran' => 'Memberikan keterangan yang tidak benar tentang kampus IT Del kepada keluarga/orangtua dan sebaliknya meminta keluarga/orangtua memberikan informasi yang tidak benar ke kampus IT Del', 'poin' => 30],
             ['nama_pelanggaran' => 'Tidak membayar bursar tanpa keterangan.', 'poin' => 30],
             ['nama_pelanggaran' => 'kabur dari asrama', 'poin' => 40],
             ['nama_pelanggaran' => 'Mendapat/menyebarkan bocoran soal ujian', 'poin' => 50],
