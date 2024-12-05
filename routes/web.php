@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PelanggaranController;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -38,3 +39,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/orangtua', [DashboardController::class, 'showDashboardOrangtua'])->name('dashboard.orangtua');
     Route::get('/dashboard/admin', [DashboardController::class, 'showDashboardAdmin'])->name('dashboard.admin');
 });
+
+Route::get('/pelanggaran/{id}/comments', [PelanggaranController::class, 'showComments'])->name('pelanggaran.showComments');
+Route::post('/pelanggaran/{id}/comments', [PelanggaranController::class, 'storeComment'])->name('comments.store');

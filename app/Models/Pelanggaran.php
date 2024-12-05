@@ -24,4 +24,9 @@ class Pelanggaran extends Model
     {
         return $this->belongsTo(ListPelanggaran::class, 'list_pelanggaran_id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

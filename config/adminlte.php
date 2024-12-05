@@ -330,6 +330,7 @@ return [
             'icon' => 'far fa-fw fa-file',
             'can' => 'isAdmin',
         ],
+
         [
             'text' => 'Tambah Pelanggaran',
             'url' => 'addpelanggaran',

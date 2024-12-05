@@ -33,8 +33,13 @@
                             <span class="p-2 rounded">{{ $item->listPelanggaran->poin }}</span>
                         </div>
                         <div class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
-                            <strong>Detail Pelanggaran:</strong>
+                            <strong>Deskripsi Pelanggaran:</strong>
                             <span class="p-2 rounded">{{ $item->listPelanggaran->nama_pelanggaran }}</span>
+                        </div>
+                        <div class="mb-3">
+                            <a href="{{ route('pelanggaran.showComments', $item->id) }}" class="btn btn-info">
+                                Detail
+                            </a>
                         </div>
                     </div>
                 @endforeach
