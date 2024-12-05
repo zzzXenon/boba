@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Faker\Factory as Faker;
 
-class PelanggaranSeeder extends Seeder
+class ListPelanggaranSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -43,7 +43,7 @@ class PelanggaranSeeder extends Seeder
 
         foreach ($angkatanProdi as $data) {
             for ($i = 1; $i <= 10; $i++) {
-                DB::table('pelanggaran')->insert([
+                DB::table('list_pelanggaran')->insert([
                     'angkatan' => $data['angkatan'],
                     'prodi' => $data['prodi'],
                     // Membuat NIM dengan format 'prefix' + 'tahun_angkatan' + 'nomor_urut'
