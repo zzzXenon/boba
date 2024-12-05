@@ -21,6 +21,21 @@ class PoinPelanggaranSeeder extends Seeder
             ['nama_pelanggaran' => 'Terlambat keluar asrama.', 'poin' => 1],
             ['nama_pelanggaran' => 'Tidak mandi pada saat berangkat makan ke kantin dan mengikuti kegiatan akademik', 'poin' => 1],
             ['nama_pelanggaran' => 'Menyimpan gantungan pakaian di lemari melebihi jumlah yang ditentukan', 'poin' => 1],
+            ['nama_pelanggaran' => 'Menyimpan peralatan kebersihan bermalam di kamar', 'poin' => 1],
+            ['nama_pelanggaran' => 'Tidak melaporkan/membiarkan kerusakan fasilitas asrama', 'poin' => 1],
+            ['nama_pelanggaran' => 'Meninggalkan peralatan menyetrika dengan tidak rapi', 'poin' => 1],
+            ['nama_pelanggaran' => 'Terlambat berbaris', 'poin' => 1],
+            ['nama_pelanggaran' => 'Ribut di barisan', 'poin' => 1],
+            ['nama_pelanggaran' => 'Tidak memiliki kelengkapan: sendok makan, garpu, botol minum, termos, payung dan pin IT Del', 'poin' => 1],
+            ['nama_pelanggaran' => 'Memilih-milih makanan', 'poin' => 1],
+            ['nama_pelanggaran' => 'Masuk/keluar ruang makan atau menyimpan ompreng tidak melalui pintu yang telah ditentukan', 'poin' => 1],
+            ['nama_pelanggaran' => 'Mengantuk dan tertidur di kelas', 'poin' => 1],
+            ['nama_pelanggaran' => 'Mahasiswa tidak belajar kolaboratif malam di ruang kelas yang telah ditentukan atau belajar di saung', 'poin' => 1],
+            ['nama_pelanggaran' => 'Tidak menggunakan kaos kakis', 'poin' => 1],
+            ['nama_pelanggaran' => 'Menggulung celana bukan karena hujan atau kondisi yang dapat diterima.', 'poin' => 1],
+            ['nama_pelanggaran' => 'Menggunakan satu payung untuk dua orang', 'poin' => 1],
+            ['nama_pelanggaran' => 'Menggulung celana bukan karena hujan.', 'poin' => 1],
+            ['nama_pelanggaran' => 'Tidak melaporkan/membiarkan kerusakan fasilitas kampus.', 'poin' => 1],
             ['nama_pelanggaran' => 'Terlambat mengumpulkan atau memberikan tugas/data yang diperlukan dalam program pembinaan karakter', 'poin' => 1],
             ['nama_pelanggaran' => 'Terlambat (bangun pagi, mengikuti ibadah dan keluar masuk asrama).', 'poin' => 2],
             ['nama_pelanggaran' => 'Meninggalkan lampu kamar tidur atau lampu asrama dalam keadaan menyala', 'poin' => 2],
@@ -59,7 +74,7 @@ class PoinPelanggaranSeeder extends Seeder
             ['nama_pelanggaran' => 'Berkelahi dengan teman', 'poin' => 25],
             ['nama_pelanggaran' => 'Menyimpan dan membawa kartu remi, domino, uno dan sejenisnya yang dapat dipergunakan untuk kegiatan perjudian', 'poin' => 25],
             ['nama_pelanggaran' => 'Mengepos status di media sosial terkait berita yang tidak dapat dipertanggungjawabkan.', 'poin' => 25],
-	        ['nama_pelanggaran' => 'Memberikan keterangan yang tidak benar tentang kampus IT Del kepada keluarga/orangtua dan sebaliknya meminta keluarga/orangtua memberikan informasi yang tidak benar ke kampus IT Del', 'poin' => 30],
+            ['nama_pelanggaran' => 'Memberikan keterangan yang tidak benar tentang kampus IT Del kepada keluarga/orangtua dan sebaliknya meminta keluarga/orangtua memberikan informasi yang tidak benar ke kampus IT Del', 'poin' => 30],
             ['nama_pelanggaran' => 'Tidak membayar bursar tanpa keterangan.', 'poin' => 30],
             ['nama_pelanggaran' => 'kabur dari asrama', 'poin' => 40],
             ['nama_pelanggaran' => 'Mendapat/menyebarkan bocoran soal ujian', 'poin' => 50],
@@ -89,6 +104,7 @@ class PoinPelanggaranSeeder extends Seeder
             ['nama_pelanggaran' => 'Menganiaya teman, pimpinan IT Del, dosen, staff dan karyawan', 'poin' => 100],
             ['nama_pelanggaran' => 'Melakukan tindakan pidana', 'poin' => 100],
             ['nama_pelanggaran' => 'Membawa, mengedarkan, menggunakan dan memfasilitasi penggunaan obat-obat terlarang', 'poin' => 100],
+        ];
 
         foreach ($pelanggaran as $item) {
             // Tentukan tingkat berdasarkan poin
