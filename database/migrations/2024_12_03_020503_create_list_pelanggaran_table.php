@@ -4,24 +4,31 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateListPelanggaranTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('list_pelanggaran', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('nama_pelanggaran'); 
+            $table->integer('poin'); 
+            $table->string('tingkat');
+            $table->timestamps(); // Timestamp untuk created_at dan updated_at
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('list_pelanggaran');
+        Schema::dropIfExists('list_pelanggaran'); // Pastikan nama tabel konsisten
     }
-};
+}
