@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('pelanggaran', function (Blueprint $table) {
             $table->id();
             $table->string('prodi');
-            $table->string('nim');
-            $table->string('nama');
             $table->text('detail_pelanggaran');
             $table->string('angkatan');
             $table->timestamps();

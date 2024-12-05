@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -46,6 +47,14 @@ class UserController extends Controller
         // Jika user tidak ditemukan, kembalikan respons error
         if (!$user) {
             return redirect()->route('kelola.pengguna')->with('error', 'Pengguna tidak ditemukan.');
+        // Fetch user data based on ID
+        $student = User::where('id', $id)
+            ->select('nama as name', 'angkatan', 'nim', 'username', 'email', 'kelas', 'prodi', 'wali')
+            ->first();
+
+        // If student not found, redirect with error message
+        if (!$student) {
+            return redirect()->back()->with('error', 'Data Mahasiswa tidak ditemukan.');
         }
 
         // Hapus user
@@ -82,5 +91,7 @@ class UserController extends Controller
 
         // Redirect kembali dengan pesan sukses
         return redirect()->route('kelola.pengguna')->with('success', 'Data pengguna berhasil diperbarui.');
+        // Pass data to the view
+        return view('infoMahasiswa', compact('student'));
     }
 }

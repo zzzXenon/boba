@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ViolationController;
 use App\Http\Controllers\PelanggaranController;
@@ -13,6 +14,7 @@ Route::get('/', function () {
 
 // Rute untuk halaman informasi mahasiswa
 Route::get('/parent/informationPage', [StudentController::class, 'showProfile']);
+Route::get('/parent/informationPage', [StudentController::class, 'showProfile'])->name('parent.informationPage');
 
 Route::get('/parent/pelanggaranPage', [ViolationController::class, 'index']);
 
@@ -23,6 +25,10 @@ Route::get('/pelanggaran/get-pelanggaran', [PelanggaranController::class, 'getPe
 
 // Main login page
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+// Handle login
+Route::post('/login', [AuthController::class, 'login'])->name('process.login');
+// Logout
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Role-specific login pages
 Route::get('/login/orangTua', [AuthController::class, 'showOrangTuaLoginForm'])->name('login.Ortu');
@@ -39,5 +45,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/login-ortu', [AuthController::class, 'processOrangTuaLogin'])->name('process.login');
 
 Route::post('/login', [PelanggaranController::class, 'login'])->name('login.submit');
+Route::get('/student/{id}', [UserController::class, 'showStudentProfile'])->name('info.mahasiswa');
 
 Route::get('/info-pelanggaran', [PelanggaranController::class, 'showInfoPelanggaran'])->name('info.pelanggaran')->middleware('auth');
+Route::post('/login-ortu', [AuthController::class, 'processOrangTuaLogin'])->name('process.login.ortu');

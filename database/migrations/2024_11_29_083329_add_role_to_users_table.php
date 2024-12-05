@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->enum('role', ['Ortu', 'Keasramaan', 'Kemahasiswaan', 'Dosen'])->default('Ortu');
+            $table->enum('role', ['Orang Tua', 'Keasramaan', 'Kemahasiswaan', 'Dosen'])->default('Orang Tua');
         });
     }
 
