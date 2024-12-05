@@ -7,7 +7,6 @@
 </head>
 <body>
     <h1>Login Orang Tua</h1>
-    <form method="POST" action="{{ route('process.login', ['role' => 'orang-tua']) }}">
     <form method="POST" action="{{ route('process.login.ortu') }}">
       @csrf
       <label for="username">Username:</label>
@@ -18,9 +17,5 @@
       <br>
       <button type="submit">Login</button>
   </form>
-  
-
-  
 </body>
-</html>
 </html>

@@ -83,15 +83,12 @@ class AuthController extends Controller
 
     public function processOrangTuaLogin(Request $request)
     {
+        // Handle the login logic...
+        $validated = $request->validate([
+            'username' => 'username',
+            'password' => 'required',
         ]);
 
-        // Attempt login for the 'orangtua' guard
-        if (Auth::guard('orangtua')->attempt([
-            'username' => $request->username,
-            'password' => $request->password,
-        ])) {
-            // Redirect to the student info page if successful
-            return redirect()->route('info.mahasiswa')->with('success', 'Login berhasil!');
         if (Auth::attempt($validated)) {
             // Assume the authenticated parent is linked to a student ID
             $studentId = Auth::user()->student_id; // Example field for student's ID
@@ -99,7 +96,7 @@ class AuthController extends Controller
             return redirect()->route('info.mahasiswa', ['id' => $studentId]);
         }
 
-        // If login fails, redirect back with an error message
+        return back()->withErrors(['login' => 'Invalid credentials.']);
     }
 
 

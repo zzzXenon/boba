@@ -14,7 +14,6 @@
                 <div class="col-md-6">
                     <div  class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
                         <strong>Nama:</strong> 
-                        <span class=" p-2 rounded">{{ $student['name'] }}</span>
                         <span class=" p-2 rounded">{{ $student['nama'] }}</span>
                     </div>
                     <div  class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
