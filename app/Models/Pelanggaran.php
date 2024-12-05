@@ -2,20 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Pelanggaran extends Model
 {
-    use HasFactory;
-
     protected $table = 'pelanggaran';
 
     protected $fillable = [
-        'nama',
-        'nim',
-        'prodi',
-        'poin',
-        'deskripsi',
+        'user_id',
+        'list_pelanggaran_id',
+        'status',
     ];
+
+    // Relationships
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function listPelanggaran()
+    {
+        return $this->belongsTo(ListPelanggaran::class, 'list_pelanggaran_id');
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Pelanggaran;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -24,15 +25,10 @@ class DashboardController extends Controller
 
   public function showDashboardAdmin()
   {
-    // Fetch data for Admin role
-    $user = User::where('role', 'Admin')->first(); // Fetch the user for Admin role
+    // Fetch data with relationships
+    $pelanggaran = Pelanggaran::with('user', 'listPelanggaran')->get();
 
-    // Check if a user with the role exists
-    if (!$user) {
-      return redirect()->route('home'); // Redirect if no user found
-    }
-
-    // Pass data to the Admin dashboard view
-    return view('dashboard.admin', ['user' => $user]);
+    // Pass the data to the Blade view
+    return view('dashboard.admin', compact('pelanggaran'));
   }
 }

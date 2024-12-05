@@ -11,31 +11,33 @@
     <div class="card border-0" style="border-radius: 7px; background-color: #E4E9EF; box-shadow: 0px 6px 8px rgba(0, 111, 255, 0.25);">
         <div class="card-body p-4">
             <h3 class="card-title text-center mb-4" style="border-bottom: 2px solid #ddd; padding-bottom: 10px; color: #333;">
-                Data Mahasiswa
+                Data Pelanggaran
             </h3>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
-                        <strong>Nama Mahasiswa:</strong> 
-                        <span class="p-2 rounded">{{ $user->nama }}</span>
+                @foreach ($pelanggaran as $item)
+                    <div class="col-md-6">
+                        <div class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
+                            <strong>Nama Mahasiswa:</strong>
+                            <span class="p-2 rounded">{{ $item->user->nama }}</span>
+                        </div>
+                        <div class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
+                            <strong>NIM:</strong>
+                            <span class="p-2 rounded">{{ $item->user->nim }}</span>
+                        </div>
+                        <div class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
+                            <strong>Prodi:</strong>
+                            <span class="p-2 rounded">{{ $item->user->prodi }}</span>
+                        </div>
+                        <div class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
+                            <strong>Poin:</strong>
+                            <span class="p-2 rounded">{{ $item->listPelanggaran->poin }}</span>
+                        </div>
+                        <div class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
+                            <strong>Detail Pelanggaran:</strong>
+                            <span class="p-2 rounded">{{ $item->listPelanggaran->nama_pelanggaran }}</span>
+                        </div>
                     </div>
-                    <div class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
-                        <strong>NIM:</strong> 
-                        <span class="p-2 rounded">{{ $user->nim }}</span>
-                    </div>
-                    <div class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
-                        <strong>Prodi:</strong> 
-                        <span class="p-2 rounded">{{ $user->prodi }}</span>
-                    </div>
-                    <div class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
-                        <strong>Poin:</strong> 
-                        <span class="p-2 rounded">{{ $listpelanggaran->poin }}</span>
-                    </div>
-                    <div class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
-                        <strong>Detail Pelanggaran:</strong> 
-                        <span class="p-2 rounded">{{ $listpelanggaran->nama_pelanggaran }}</span>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>

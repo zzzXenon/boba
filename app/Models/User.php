@@ -69,4 +69,9 @@ class User extends Authenticatable
             'username',
         ]);
     }
+
+    public function pelanggarans()
+    {
+        return $this->hasMany(Pelanggaran::class, 'user_id');
+    }
 }
