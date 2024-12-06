@@ -11,13 +11,14 @@ Route::get('/', function () {
         $user = Auth::user();
 
         if ($user->role === 'Orang Tua') {
-            return view('dashboard.orangtua');
+            return view('dashboard.orangtua', compact('user'));
         }
 
-        return view('dashboard.admin');
+        return view('dashboard.admin', compact('user'));
     }
     return redirect()->route('login');
 })->name('home');
+
 
 // Login routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');

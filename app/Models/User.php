@@ -79,4 +79,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class, 'user_id');
     }
+
+    public function getRoleAttribute($value)
+    {
+        return ucfirst($value);
+    }
 }

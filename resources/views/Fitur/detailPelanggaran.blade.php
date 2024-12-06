@@ -41,12 +41,13 @@
   <h4>Comments</h4>
   @foreach ($pelanggaran->comments as $comment)
   <div class="comment">
-      <!-- Display the user's name above the comment -->
-      <p><strong>{{ $comment->user->nama }}</strong></p>
+      <!-- Display the user's role and name -->
+      <p><strong>({{ $comment->user->role }}) {{ $comment->user->nama }}</strong></p>
       <p>{{ $comment->comment }}</p>
       <p><em>{{ $comment->created_at->diffForHumans() }}</em></p>
   </div>
-  @endforeach
+  @endforeach 
+
 
   <form action="{{ route('comments.store', $pelanggaran->id) }}" method="POST" class="mt-4">
       @csrf
