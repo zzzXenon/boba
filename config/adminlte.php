@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Gate;
+
 return [
 
     /*
@@ -63,8 +65,8 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>SISTEM</b>PELANGGARAN',
+    'logo_img' => 'vendor/adminlte/dist/img/app-logo-color.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -86,7 +88,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'vendor/adminlte/dist/img/app-logo-color.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -113,7 +115,7 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'vendor/adminlte/dist/img/app-logo-color.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
@@ -315,33 +317,43 @@ return [
             'text' => 'Dashboard',
             'url' => 'dashboard/orangtua',
             'icon' => 'far fa-fw fa-file',
-            'can' => 'isOrangTua',
+            'can' => function () {
+                return Gate::allows('isOrangTua');
+            },
         ],
         [
             'text' => 'Pelanggaran',
             'url' => '???',
             'icon' => 'far fa-fw fa-file',
-            'can' => 'isOrangTua',
+            'can' => function () {
+                return Gate::allows('isOrangTua');
+            },
         ],
 
         [
             'text' => 'Dashboard',
             'url' => 'dashboard/admin',
             'icon' => 'far fa-fw fa-file',
-            'can' => 'isAdmin',
+            'can' => function () {
+                return Gate::allows('isAdmin');
+            },
         ],
 
         [
             'text' => 'Tambah Pelanggaran',
-            'url' => 'addpelanggaran',
+            'url' => 'pelanggaran/create',
             'icon' => 'fas fa-fw fa-file',
-            'can' => 'isKeasramaan',
+            'can' => function () {
+                return Gate::allows('isKeasramaan');
+            },
         ],
         [
             'text' => 'Tambah Pelanggaran',
-            'url' => 'addpelanggaran',
+            'url' => 'pelanggaran/create',
             'icon' => 'fas fa-fw fa-file',
-            'can' => 'isKemahasiswaan',
+            'can' => function () {
+                return Gate::allows('isKemahasiswaan');
+            },
         ],
     ],
 

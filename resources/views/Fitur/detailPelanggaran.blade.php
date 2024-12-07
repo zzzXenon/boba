@@ -38,7 +38,7 @@
 </div>
 
 <div class="container mt-5">
-  <h4>Comments</h4>
+  <h4>Tanggapan Sebelumnya</h4>
   @foreach ($pelanggaran->comments as $comment)
   <div class="comment">
       <!-- Display the user's role and name -->
@@ -54,7 +54,7 @@
       <div class="form-group">
           <textarea name="comment" class="form-control" placeholder="Add a comment"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary mt-2">Submit Comment</button>
+      <button type="submit" class="btn btn-primary mt-2">Kirim Tanggapan</button>
   </form>
 </div>
 @endsection
