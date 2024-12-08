@@ -35,14 +35,14 @@
         <!-- Poin Pelanggaran Dropdown -->
         <div class="mb-3">
             <label for="poin_pelanggaran" class="form-label">Jenis Pelanggaran:</label>
-            <select name="poin_pelanggaran" id="poin_pelanggaran" class="form-select">
-                <option value="">Pilih Poin Pelanggaran</option>
+            <select name="list_pelanggaran_id" id="poin_pelanggaran" class="form-select">
+                <option value="">Pilih Jenis Pelanggaran</option>
                 @foreach ($poinPelanggaran as $poin)
-                    <option value="{{ $poin->id }}" {{ old('poin_pelanggaran') == $poin->id ? 'selected' : '' }}>
+                    <option value="{{ $poin->id }}" {{ old('list_pelanggaran_id') == $poin->id ? 'selected' : '' }}>
                         {{ $poin->nama_pelanggaran }} ({{ $poin->poin }} Poin)
                     </option>
                 @endforeach
-            </select>
+            </select>       
             @if ($errors->has('poin_pelanggaran'))
                 <div class="text-danger">{{ $errors->first('poin_pelanggaran') }}</div>
             @endif

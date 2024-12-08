@@ -47,6 +47,15 @@ class PelanggaranController extends Controller
         return view('fitur.addPelanggaran', compact('poinPelanggaran'));
     }
 
+    public function index()
+    {
+        // Fetch all pelanggaran records, or customize this query as needed
+        $pelanggarans = Pelanggaran::all();
+
+        // Return the index view and pass the pelanggaran records
+        return view('fitur.indexPelanggaran', compact('pelanggarans'));
+    }
+
     public function store(Request $request)
     {
         // Validate the request
@@ -55,7 +64,7 @@ class PelanggaranController extends Controller
             'prodi' => 'required|string',
             'nim' => 'required|string',
             'nama' => 'required|string',
-            'list_pelanggaran_id' => 'required|exists:list_pelanggarans,id',
+            'list_pelanggaran_id' => 'required|exists:list_pelanggaran,id',
         ]);
 
         // Check if user exists with the given details
@@ -76,10 +85,10 @@ class PelanggaranController extends Controller
         Pelanggaran::create([
             'user_id' => $user->id,
             'list_pelanggaran_id' => $request->list_pelanggaran_id,
-            'status' => 'pending', // Default status, modify if needed
+            'status' => 'Belum Diperiksa',
         ]);
 
         // Redirect with success message
-        return redirect()->route('pelanggaran.index')->with('success', 'Pelanggaran successfully added.');
+        return redirect()->route('pelanggaran.create')->with('success', 'Pelanggaran successfully added.');
     }
 }
