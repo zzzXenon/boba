@@ -89,6 +89,6 @@ class PelanggaranController extends Controller
         ]);
 
         // Redirect with success message
-        return redirect()->route('pelanggaran.create')->with('success', 'Pelanggaran successfully added.');
+        return redirect()->route('dashboard.admin')->with('success', 'Pelanggaran successfully added.');
     }
 }
