@@ -341,7 +341,7 @@ return [
 
         [
             'text' => 'Tambah Pelanggaran',
-            'url' => 'pelanggaran/create',
+            'url' => 'pelanggaran/add',
             'icon' => 'fas fa-fw fa-file',
             'can' => function () {
                 return Gate::allows('isKeasramaan');
@@ -349,7 +349,7 @@ return [
         ],
         [
             'text' => 'Tambah Pelanggaran',
-            'url' => 'pelanggaran/create',
+            'url' => 'pelanggaran/add',
             'icon' => 'fas fa-fw fa-file',
             'can' => function () {
                 return Gate::allows('isKemahasiswaan');

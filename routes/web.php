@@ -44,15 +44,8 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/pelanggaran/{id}/comments', [PelanggaranController::class, 'showComments'])->name('pelanggaran.showComments');
 Route::post('/pelanggaran/{id}/comments', [PelanggaranController::class, 'storeComment'])->name('comments.store');
 
-// MarioMarioMario
-// Route to show the form to add pelanggaran
-Route::get('/pelanggaran/create', [PelanggaranController::class, 'create'])->name('pelanggaran.create');
-
-// Route to get Prodi based on Angkatan (AJAX)
-Route::get('/get-prodi/{angkatan}', [PelanggaranController::class, 'getProdiByAngkatan']);
-
-// Route to get NIM and Nama based on Prodi (AJAX)
-Route::get('/get-nim-nama/{prodi}', [PelanggaranController::class, 'getNimNamaByProdi']);
-
-// Route to store pelanggaran data
-Route::post('/pelanggaran', [PelanggaranController::class, 'store'])->name('pelanggaran.store');
+Route::prefix('pelanggaran')->group(function () {
+    Route::get('/add', [PelanggaranController::class, 'create'])->name('pelanggaran.create'); // GET for the form
+    Route::post('/add', [PelanggaranController::class, 'store'])->name('pelanggaran.store'); // POST for form submission
+    Route::get('/', [PelanggaranController::class, 'index'])->name('pelanggaran.index');
+});

@@ -38,57 +38,48 @@ class PelanggaranController extends Controller
     }
 
     //////////////////////////////////////////////////////////////////////////////////////
-
-    // Display the form to add Pelanggaran
     public function create()
     {
-        // Retrieve unique Angkatan
-        $angkatans = User::select('angkatan')->distinct()->get();
-
-        // Retrieve ListPelanggaran data
+        // Fetch data for dropdowns or other needs, if necessary
         $poinPelanggaran = ListPelanggaran::all();
 
-        // Pass data to the view
-        return view('fitur.addPelanggaran', compact('angkatans', 'poinPelanggaran'));
+        // Return the form view
+        return view('fitur.addPelanggaran', compact('poinPelanggaran'));
     }
 
-    // Get Prodi based on selected Angkatan
-    public function getProdiByAngkatan($angkatan)
-    {
-        $prodis = User::where('angkatan', $angkatan)->pluck('prodi', 'prodi');
-        return response()->json($prodis);
-    }
-
-    // Get NIM and Nama based on selected Prodi
-    public function getNimNamaByProdi($prodi)
-    {
-        $mahasiswa = User::where('prodi', $prodi)->get(['nim', 'nama']);
-        return response()->json($mahasiswa);
-    }
-
-    // Store Pelanggaran data
     public function store(Request $request)
     {
-        // Validate the input data
+        // Validate the request
         $request->validate([
-            'angkatan' => 'required',
-            'prodi' => 'required',
-            'nim' => 'required',
-            'nama' => 'required',
-            'poin_pelanggaran' => 'required', // Ensure the correct field is validated
+            'angkatan' => 'required|string',
+            'prodi' => 'required|string',
+            'nim' => 'required|string',
+            'nama' => 'required|string',
+            'list_pelanggaran_id' => 'required|exists:list_pelanggarans,id',
         ]);
 
-        // Find the mahasiswa based on NIM
-        $mahasiswa = User::where('nim', $request->nim)->firstOrFail();
+        // Check if user exists with the given details
+        $user = User::where('angkatan', $request->angkatan)
+            ->where('prodi', $request->prodi)
+            ->where('nim', $request->nim)
+            ->where('nama', $request->nama)
+            ->first();
 
-        // Create a new Pelanggaran record
+        // If user does not exist or role is not 'Orang Tua', abort the operation
+        if (!$user || $user->role !== 'Orang Tua') {
+            return redirect()->back()->withErrors([
+                'user' => 'User not found or not authorized (Role must be "Orang Tua").',
+            ]);
+        }
+
+        // Create the pelanggaran record
         Pelanggaran::create([
-            'user_id' => $mahasiswa->id,
-            'list_pelanggaran_id' => $request->poin_pelanggaran,
-            'status' => 'Belum Diperiksa', // Default status
+            'user_id' => $user->id,
+            'list_pelanggaran_id' => $request->list_pelanggaran_id,
+            'status' => 'pending', // Default status, modify if needed
         ]);
 
-        // Redirect back with a success message
-        return redirect()->route('pelanggaran.create')->with('success', 'Pelanggaran berhasil ditambahkan.');
+        // Redirect with success message
+        return redirect()->route('pelanggaran.index')->with('success', 'Pelanggaran successfully added.');
     }
 }
