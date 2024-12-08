@@ -47,15 +47,6 @@ class PelanggaranController extends Controller
         return view('fitur.addPelanggaran', compact('poinPelanggaran'));
     }
 
-    public function index()
-    {
-        // Fetch all pelanggaran records, or customize this query as needed
-        $pelanggarans = Pelanggaran::all();
-
-        // Return the index view and pass the pelanggaran records
-        return view('fitur.indexPelanggaran', compact('pelanggarans'));
-    }
-
     public function store(Request $request)
     {
         // Validate the request
