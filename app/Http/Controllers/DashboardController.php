@@ -10,7 +10,6 @@ class DashboardController extends Controller
 {
   public function showDashboardOrangtua()
   {
-    // Fetch data for Orang Tua role
     // Assuming the role is stored in the 'role' attribute
     $user = User::where('role', 'Orang Tua')->first(); // Fetch the user for Orang Tua role
 

@@ -34,18 +34,31 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/admin', function () {
         return view('dashboard.admin');
     })->name('dashboard.admin');
-});
 
-Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/orangtua', [DashboardController::class, 'showDashboardOrangtua'])->name('dashboard.orangtua');
     Route::get('/dashboard/admin', [DashboardController::class, 'showDashboardAdmin'])->name('dashboard.admin');
+
+    Route::get('/pelanggaran/{id}/comments', [PelanggaranController::class, 'showComments'])->name('pelanggaran.showComments');
+    Route::post('/pelanggaran/{id}/comments', [PelanggaranController::class, 'storeComment'])->name('pelanggaran.storeComment');
+    Route::get('/pelanggaran/{id}', [PelanggaranController::class, 'showDetail'])->name('pelanggaran.show');
+
+    Route::prefix('pelanggaran')->group(function () {
+        Route::get('/add', [PelanggaranController::class, 'create'])->name('pelanggaran.create');
+        Route::post('/add', [PelanggaranController::class, 'store'])->name('pelanggaran.store');
+        Route::get('/', [PelanggaranController::class, 'index'])->name('pelanggaran.index');
+    });
 });
 
-Route::get('/pelanggaran/{id}/comments', [PelanggaranController::class, 'showComments'])->name('pelanggaran.showComments');
-Route::post('/pelanggaran/{id}/comments', [PelanggaranController::class, 'storeComment'])->name('comments.store');
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/dashboard/orangtua', [DashboardController::class, 'showDashboardOrangtua'])->name('dashboard.orangtua');
+//     Route::get('/dashboard/admin', [DashboardController::class, 'showDashboardAdmin'])->name('dashboard.admin');
+// });
 
-Route::prefix('pelanggaran')->group(function () {
-    Route::get('/add', [PelanggaranController::class, 'create'])->name('pelanggaran.create'); // GET for the form
-    Route::post('/add', [PelanggaranController::class, 'store'])->name('pelanggaran.store'); // POST for form submission
-    Route::get('/', [PelanggaranController::class, 'index'])->name('pelanggaran.index');
-});
+// Route::get('/pelanggaran/{id}/comments', [PelanggaranController::class, 'showComments'])->name('pelanggaran.showComments');
+// Route::post('/pelanggaran/{id}/comments', [PelanggaranController::class, 'storeComment'])->name('pelanggaran.storeComment');
+
+// Route::prefix('pelanggaran')->group(function () {
+//     Route::get('/add', [PelanggaranController::class, 'create'])->name('pelanggaran.create'); // GET for the form
+//     Route::post('/add', [PelanggaranController::class, 'store'])->name('pelanggaran.store'); // POST for form submission
+//     Route::get('/', [PelanggaranController::class, 'index'])->name('pelanggaran.index');
+// });

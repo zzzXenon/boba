@@ -30,8 +30,9 @@ class AuthServiceProvider extends ServiceProvider
       return $user->role === 'Orang Tua';
     });
 
-    Gate::define('isStaff', function (User $user) {
-      return in_array($user->role, ['Dosen', 'Kaprodi', 'Komdis', 'Rektor']);
+    Gate::define('isAdmin', function (User $user) {
+      $allowedRoles = ['Keasramaan', 'Kemahasiswaan', 'Dosen', 'Kaprodi', 'Komdis', 'Rektor'];
+      return in_array($user->role, $allowedRoles);
     });
 
     Gate::define('isKeasramaan', function (User $user) {
@@ -40,10 +41,6 @@ class AuthServiceProvider extends ServiceProvider
 
     Gate::define('isKemahasiswaan', function (User $user) {
       return $user->role === 'Kemahasiswaan';
-    });
-
-    Gate::define('isAdmin', function (User $user) {
-      return in_array($user->role, ['Keasramaan', 'Kemahasiswaan', 'Dosen', 'Kaprodi', 'Komdis', 'Rektor']);
     });
   }
 }

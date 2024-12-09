@@ -6,6 +6,24 @@
 <div class="container mt-5">
     <h2 class="text-center mb-4">Form Pelanggaran</h2>
 
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
+
+
+    <!-- Display Errors -->
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <form action="{{ route('pelanggaran.store') }}" method="POST" class="shadow p-4 rounded" style="max-width: 600px; margin: auto; background: #f9f9f9;">
         @csrf  <!-- CSRF Token -->
         <!-- Angkatan Textbox -->

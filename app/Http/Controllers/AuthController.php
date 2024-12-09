@@ -27,7 +27,7 @@ class AuthController extends Controller
             // Redirect based on the role
             if ($role === 'Orang Tua') {
                 return redirect()->route('dashboard.orangtua');
-            } elseif (in_array($role, ['Dosen', 'Keasramaan', 'Kemahasiswaan'])) {
+            } elseif (in_array($role, ['Dosen', 'Keasramaan', 'Kemahasiswaan', 'Keasramaan', 'Kemahasiswaan'])) {
                 return redirect()->route('dashboard.admin');
             }
 

@@ -4,8 +4,15 @@
 
 @section('content')
 <div class="container">
-    <h1>Welcome to Dashboard</h1>
+    <h1>Welcome to Dashboard Admin</h1>
 </div>
+
+@if(session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
+
 
 <div class="container mt-5">
     <div class="card border-0" style="border-radius: 7px; background-color: #E4E9EF; box-shadow: 0px 6px 8px rgba(0, 111, 255, 0.25);">
