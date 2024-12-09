@@ -42,6 +42,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pelanggaran/{id}/comments', [PelanggaranController::class, 'storeComment'])->name('pelanggaran.storeComment');
     Route::get('/pelanggaran/{id}', [PelanggaranController::class, 'showDetail'])->name('pelanggaran.show');
 
+    Route::get('/detail-mahasiswa', [PelanggaranController::class, 'showPelanggaran'])->name('detailMahasiswa');
+
     Route::prefix('pelanggaran')->group(function () {
         Route::get('/add', [PelanggaranController::class, 'create'])->name('pelanggaran.create');
         Route::post('/add', [PelanggaranController::class, 'store'])->name('pelanggaran.store');

@@ -321,7 +321,7 @@ return [
         ],
         [
             'text' => 'Pelanggaran',
-            'url' => '/pelanggaran/1',
+            'url' => 'detail-mahasiswa',
             'icon' => 'far fa-fw fa-file',
             // 'can' => 'isOrangTua',
         ],

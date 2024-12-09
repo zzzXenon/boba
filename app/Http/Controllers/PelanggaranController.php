@@ -8,18 +8,18 @@ use App\Models\User;
 use App\Models\ListPelanggaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class PelanggaranController extends Controller
 {
-    // In your controller method
     public function showPelanggaran()
     {
-        // Assuming the user has a 'pelanggaran' relationship
-        $pelanggaranList = auth()->user()->pelanggaran()->get(); // or use ->with('listPelanggaran') if the pelanggaran data is nested
+        $userId = Auth::id();
 
-        return view('detailMahasiswa', compact('pelanggaranList'));
+        $pelanggaranList = Pelanggaran::where('user_id', $userId)->get();
+
+        return view('fitur.detailMahasiswa', compact('pelanggaranList'));
     }
-
 
     public function showComments($id)
     {
