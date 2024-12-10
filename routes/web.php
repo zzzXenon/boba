@@ -40,9 +40,14 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/pelanggaran/{id}/comments', [PelanggaranController::class, 'showComments'])->name('pelanggaran.showComments');
     Route::post('/pelanggaran/{id}/comments', [PelanggaranController::class, 'storeComment'])->name('pelanggaran.storeComment');
-    Route::get('/pelanggaran/{id}', [PelanggaranController::class, 'showDetail'])->name('pelanggaran.show');
 
     Route::get('/detail-mahasiswa', [PelanggaranController::class, 'showPelanggaran'])->name('detailMahasiswa');
+
+    Route::get('/pelanggaran/update', [PelanggaranController::class, 'updatePelanggaran'])->name('updatePelanggaran');
+    Route::post('/pelanggaran/update', [PelanggaranController::class, 'updatePelanggaranStatus'])->name('updatePelanggaranStatus');
+
+    Route::post('/update-pelanggaran-status', [PelanggaranController::class, 'updatePelanggaranStatus'])->name('updatePelanggaranStatus');
+    Route::post('/pelanggaran/{id}/update-status', [PelanggaranController::class, 'updateStatus'])->name('pelanggaran.update_status');
 
     Route::prefix('pelanggaran')->group(function () {
         Route::get('/add', [PelanggaranController::class, 'create'])->name('pelanggaran.create');

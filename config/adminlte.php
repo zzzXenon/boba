@@ -341,7 +341,7 @@ return [
         ],
         [
             'text' => 'Update Pelanggaran',
-            'url' => 'pelanggaran/add',
+            'url' => 'pelanggaran/update',
             'icon' => 'fas fa-fw fa-file',
             // 'can' => 'isKemahasiswaan',
         ],

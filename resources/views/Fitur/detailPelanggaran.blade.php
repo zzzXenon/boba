@@ -13,7 +13,7 @@
               <div class="col-md-6">
                   <div class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
                       <strong>Nama Mahasiswa:</strong>
-                      <span class="p-2 rounded">{{ $pelanggaran->user->name }}</span>
+                      <span class="p-2 rounded">{{ $pelanggaran->user->nama }}</span>
                   </div>
                   <div class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
                       <strong>NIM:</strong>
@@ -69,7 +69,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="file" class="form-label">Lampirkan File (Optional):</label>
+            <label for="file" class="form-label">Lampirkan File (Opsional):</label>
             <input type="file" name="file" id="file" class="form-control">
         </div>
 

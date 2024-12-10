@@ -55,7 +55,6 @@ class PelanggaranController extends Controller
             ->with('success', 'Berhasil membuat tanggapan!');
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////
     public function create()
     {
         // Fetch data for dropdowns or other needs, if necessary
@@ -109,5 +108,21 @@ class PelanggaranController extends Controller
                 'general' => 'ERROR terjadi ketika membuat Pelanggaran baru. Silahkan coba lagi..',
             ])->withInput();
         }
+    }
+
+    public function updatePelanggaran()
+    {
+        $pelanggaranList = Pelanggaran::with('user')->get();
+
+        return view('fitur.updatePelanggaran', compact('pelanggaranList'));
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $pelanggaran = Pelanggaran::findOrFail($id);
+        $pelanggaran->status = $request->input('status');
+        $pelanggaran->save();
+
+        return back()->with('success', 'Berhasil mengubah status pelanggaran!.');
     }
 }
