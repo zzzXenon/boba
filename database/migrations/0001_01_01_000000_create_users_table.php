@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('kelas')->nullable();
             $table->string('prodi')->nullable();
             $table->string('wali')->nullable();
+            $table->string('image')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
@@ -48,6 +49,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('image');  // Hapus kolom image jika rollback
+        });
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');

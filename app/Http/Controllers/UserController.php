@@ -11,7 +11,7 @@ class UserController extends Controller
     {
         // Fetch user data based on ID
         $student = User::where('id', $id)
-            ->select('nama as name', 'angkatan', 'nim', 'username', 'email', 'kelas', 'prodi', 'wali')
+            ->select('nama as name', 'angkatan', 'nim', 'username', 'email', 'kelas', 'prodi', 'wali', 'image')
             ->first();
 
         // If student not found, redirect with error message

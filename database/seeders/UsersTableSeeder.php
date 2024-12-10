@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UsersTableSeeder extends Seeder
 {
@@ -24,6 +25,7 @@ class UsersTableSeeder extends Seeder
                 'prodi' => 'S1 Informatika',
                 'wali' => 'Wali Ortu',
                 'role' => 'Orang Tua',
+                'image' => '/img/pp.jpg' // Pass the image data
             ],
             [
                 'nama' => 'Pak Leo',
@@ -72,6 +74,7 @@ class UsersTableSeeder extends Seeder
                 'prodi' => 'S1 Informatika',
                 'wali' => 'Arlinta Barus',
                 'role' => 'Orang Tua',
+                'image' => '/img/pp.jpg' // Pass the image data
             ],
             [
                 'nama' => 'Nataya Cruz',
@@ -3206,6 +3209,7 @@ class UsersTableSeeder extends Seeder
             'prodi' => 'D IV Sarjana Terapan Teknologi Rekayasa Perangkat Lunak',
             'wali' => 'Cynthia Deborah',
             'role' => 'Orang Tua',
+            'image' => '/img/pp.jpg' // Pass the image data
         ],
 
         [

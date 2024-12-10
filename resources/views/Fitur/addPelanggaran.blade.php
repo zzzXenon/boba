@@ -42,7 +42,7 @@
                         {{ $poin->nama_pelanggaran }} ({{ $poin->poin }} Poin)
                     </option>
                 @endforeach
-            </select>       
+            </select>
             @if ($errors->has('poin_pelanggaran'))
                 <div class="text-danger">{{ $errors->first('poin_pelanggaran') }}</div>
             @endif
@@ -55,4 +55,21 @@
     </form>
 </div>
 
+@endsection
+
+@section('css')
+    <style>
+        /* Membuat dropdown agar teks panjang dibungkus (wrap) dalam beberapa baris */
+        #poin_pelanggaran {
+            width: 100%;
+            max-width: 100%; /* memastikan dropdown memanjang sesuai lebar kontainer */
+        }
+
+        #poin_pelanggaran option {
+            white-space: normal; /* Membolehkan teks membungkus ke baris baru */
+            word-wrap: break-word; /* Memungkinkan pemenggalan kata jika terlalu panjang */
+            word-break: break-word; /* Untuk memastikan kata panjang terpecah jika perlu */
+        }
+
+    </style>
 @endsection

@@ -25,6 +25,7 @@ class User extends Authenticatable
         'kelas',
         'prodi',
         'wali',
+        'image',
         'role',
     ];
 
@@ -60,6 +61,7 @@ class User extends Authenticatable
                 'kelas',
                 'prodi',
                 'wali',
+                'image',
             ]);
         }
 
