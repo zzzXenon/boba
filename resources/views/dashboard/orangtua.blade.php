@@ -8,7 +8,7 @@
         <div class="card-body p-4">
             
             <!-- First Row: Title "Data Mahasiswa" -->
-            <div class="row mb-4">
+            <div class="row">
                 <div class="col-12 text-center">
                     <h3 class="title" style="color: #333; border-bottom: 2px solid #ddd; padding-bottom: 10px;">Data Mahasiswa</h3>
                 </div>

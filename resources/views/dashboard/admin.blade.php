@@ -10,24 +10,24 @@
         <div class="card-body p-4">
         
             <!-- Table for displaying pelanggaran data -->
-            <table class="table table-striped">
+            <table class="table table-striped mb-3">
                 <thead>
                     <tr>
-                        <th>Nama</th>
-                        <th>NIM</th>
-                        <th>Prodi</th>
-                        <th>Poin</th>
-                        <th style="max-width: 5px; word-wrap: break-word;">Deskripsi Pelanggaran</th> <!-- Set max width -->
+                        <th style="max-width: 150px; word-wrap: break-word;">Nama</th>
+                        <th style="max-width: 100px; word-wrap: break-word;">NIM</th>
+                        <th style="max-width: 150px; word-wrap: break-word;">Prodi</th>
+                        <th style="max-width: 80px; word-wrap: break-word;">Poin</th>
+                        <th style="max-width: 200px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;" class="text-center">Deskripsi Pelanggaran</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($pelanggaran as $item)
                     <tr>
-                        <td>{{ $item->user->nama }}</td>
-                        <td>{{ $item->user->nim }}</td>
-                        <td>{{ $item->user->prodi }}</td>
-                        <td>{{ $item->listPelanggaran->poin }}</td>
-                        <td class="text-center"> <!-- Apply text-center class to center the content -->
+                        <td style="max-width: 150px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">{{ $item->user->nama }}</td>
+                        <td style="max-width: 100px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">{{ $item->user->nim }}</td>
+                        <td style="max-width: 150px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">{{ $item->user->prodi }}</td>
+                        <td style="max-width: 80px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">{{ $item->listPelanggaran->poin }}</td>
+                        <td style="max-width: 200px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;" class="text-center"> <!-- Apply text-center class to center the content -->
                             <!-- Displaying Deskripsi Pelanggaran with a button below -->
                             <span>{{ $item->listPelanggaran->nama_pelanggaran }}</span>
                             <br> <!-- Line break to separate description and button -->

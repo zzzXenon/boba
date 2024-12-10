@@ -6,33 +6,28 @@
 <div class="container mt-5">
     <div class="card border-0" style="border-radius: 7px; background-color: #E4E9EF; box-shadow: 0px 6px 8px rgba(0, 111, 255, 0.25);">
         <div class="card-body p-4">
-            <h3 class="card-title text-center mb-4" style="border-bottom: 2px solid #ddd; padding-bottom: 10px; color: #333;">
-                Detail Pelanggaran
-            </h3>
-            <div class="row">
-              <div class="col-md-6">
-                  <div class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
-                      <strong>Nama Mahasiswa:</strong>
-                      <span class="p-2 rounded">{{ $pelanggaran->user->name }}</span>
-                  </div>
-                  <div class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
-                      <strong>NIM:</strong>
-                      <span class="p-2 rounded">{{ $pelanggaran->user->nim }}</span>
-                  </div>
-                  <div class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
-                      <strong>Prodi:</strong>
-                      <span class="p-2 rounded">{{ $pelanggaran->user->prodi }}</span>
-                  </div>
-                  <div class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
-                      <strong>Poin:</strong>
-                      <span class="p-2 rounded">{{ $pelanggaran->listPelanggaran->poin }}</span>
-                </div>
-                  <div class="mb-3" style="border-radius: 7px; background-color: #D3E4FB;">
-                      <strong>Detail Pelanggaran:</strong>
-                      <span class="p-2 rounded">{{ $pelanggaran->listPelanggaran->nama_pelanggaran }}</span>
-                  </div>
-              </div>
-            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="max-width: 150px; word-wrap: break-word;">Nama</th>
+                        <th style="max-width: 100px; word-wrap: break-word;">NIM</th>
+                        <th style="max-width: 150px; word-wrap: break-word;">Prodi</th>
+                        <th style="max-width: 80px; word-wrap: break-word;">Poin</th>
+                        <th style="max-width: 200px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">Deskripsi Pelanggaran</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="max-width: 150px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">{{ $pelanggaran->user->nama }}</td>
+                        <td style="max-width: 100px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">{{ $pelanggaran->user->nim }}</td>
+                        <td style="max-width: 150px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">{{ $pelanggaran->user->prodi }}</td>
+                        <td style="max-width: 80px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">{{ $pelanggaran->listPelanggaran->poin }}</td>
+                        <td style="max-width: 200px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">
+                            {{ $pelanggaran->listPelanggaran->nama_pelanggaran }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -47,7 +42,6 @@
       <p><em>{{ $comment->created_at->diffForHumans() }}</em></p>
   </div>
   @endforeach 
-
 
   <form action="{{ route('comments.store', $pelanggaran->id) }}" method="POST" class="mt-4">
       @csrf
