@@ -39,14 +39,15 @@ class AuthController extends Controller
 
         if ($role === 'Orang Tua') {
             return redirect()->route('dashboard.orangtua');
-        } elseif (in_array($role, ['Dosen', 'Keasramaan', 'Kemahasiswaan'])) {
+        } elseif (in_array($role, ['Keasramaan', 'Kemahasiswaan'])) {
             return redirect()->route('dashboard.admin');
+        } elseif (in_array($role, ['Komisi Disiplin', 'Rektor'])) {
+            return redirect()->route('dashboard.atasan');
         }
 
         // Optional fallback for unknown roles
         return redirect()->route('login');
     }
-
 
     public function logout()
     {
