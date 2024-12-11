@@ -43,7 +43,7 @@
   </div>
   @endforeach 
 
-  <form action="{{ route('comments.store', $pelanggaran->id) }}" method="POST" class="mt-4">
+  <form action="{{ route('pelanggaran.storeComment', $pelanggaran->id) }}" method="POST" class="mt-4">
       @csrf
       <div class="form-group">
           <textarea name="comment" class="form-control" placeholder="Add a comment"></textarea>

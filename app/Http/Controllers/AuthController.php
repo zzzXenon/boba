@@ -20,25 +20,33 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        // Attempt to authenticate the user
-        if (Auth::attempt($request->only('username', 'password'))) {
-            $role = Auth::user()->role;
+        // Check if the username exists
+        $user = \App\Models\User::where('username', $request->username)->first();
 
-            // Redirect based on the role
-            if ($role === 'Orang Tua') {
-                return redirect()->route('dashboard.orangtua');
-            } elseif (in_array($role, ['Dosen', 'Keasramaan', 'Kemahasiswaan', 'Keasramaan', 'Kemahasiswaan'])) {
-                return redirect()->route('dashboard.admin');
-            }
-
-            // Optional: If no matching role
-            return redirect()->route('login');
+        if (!$user) {
+            // Username not found
+            return back()->withErrors(['username' => 'Username salah.'])->withInput();
         }
 
+        // Attempt to authenticate with the provided credentials
+        if (!Auth::attempt($request->only('username', 'password'))) {
+            // Password incorrect
+            return back()->withErrors(['password' => 'Password salah.'])->withInput();
+        }
 
-        // Authentication failed, redirect back with an error
-        return back()->withErrors(['username' => 'Invalid credentials.'])->withInput();
+        // If authentication succeeds, redirect based on role
+        $role = Auth::user()->role;
+
+        if ($role === 'Orang Tua') {
+            return redirect()->route('dashboard.orangtua');
+        } elseif (in_array($role, ['Dosen', 'Keasramaan', 'Kemahasiswaan'])) {
+            return redirect()->route('dashboard.admin');
+        }
+
+        // Optional fallback for unknown roles
+        return redirect()->route('login');
     }
+
 
     public function logout()
     {
