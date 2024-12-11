@@ -28,14 +28,14 @@ class RolePolicy
 
     public function accessAdmin(User $user)
     {
-        $allowedRoles = ['Keasramaan', 'Kemahasiswaan'];
+        $allowedRoles = ['Keasramaan', 'Kemahasiswaan', 'Dosen', 'Komisi Disiplin', 'Kemahasiswaan'];
 
         return in_array($user->role, $allowedRoles);
     }
 
-    public function accessAtasan(User $user)
+    public function accessKemKem(User $user)
     {
-        $allowedRoles = ['Komisi Disiplin', 'Kemahasiswaan'];
+        $allowedRoles = ['Keasramaan', 'Kemahasiswaan'];
 
         return in_array($user->role, $allowedRoles);
     }

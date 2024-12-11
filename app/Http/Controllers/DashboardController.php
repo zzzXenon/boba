@@ -29,14 +29,31 @@ class DashboardController extends Controller
 
   public function showDashboardAdmin()
   {
-    if (Gate::denies('access-admin')) {
-      abort(403, 'Unauthorized action.');
+    $user = Auth::user();
+
+    // Fetch pelanggaran data based on role
+    if ($user->role === 'Orang Tua') {
+      $pelanggaran = Pelanggaran::with('user', 'listPelanggaran')
+        ->whereHas('user', function ($query) use ($user) {
+          $query->where('wali', $user->nama);
+        })
+        ->get();
+    } elseif (in_array($user->role, ['Keasramaan', 'Kemahasiswaan'])) {
+      $pelanggaran = Pelanggaran::with('user', 'listPelanggaran')->get();
+    } elseif (in_array($user->role, ['Komisi Disiplin', 'Rektor'])) {
+      $pelanggaran = Pelanggaran::with('user', 'listPelanggaran')
+        ->whereHas('listPelanggaran', function ($query) {
+          $query->where('poin', '>', 25);
+        })
+        ->get();
+    } elseif ($user->role === 'Dosen') {
+      $pelanggaran = Pelanggaran::with('user', 'listPelanggaran')
+        ->whereHas('user', function ($query) use ($user) {
+          $query->where('wali', $user->nama);
+        })
+        ->get();
     }
 
-    // Fetch data with relationships
-    $pelanggaran = Pelanggaran::with('user', 'listPelanggaran')->get();
-
-    // Pass the data to the Blade view
     return view('dashboard.admin', compact('pelanggaran'));
   }
 }
