@@ -19,42 +19,42 @@
                 
                 <!-- Second Column: Data -->
                 <div class="col-md-8">
-                    <div class="mb-3" style="border-radius: 7px; background-color: #BBE3ED;">
+                    <div class="mb-3 mt-4" style="border-radius: 7px; background-color: #BBE3ED; padding: 6px 40px;">
                         <strong>Nama:</strong> 
                         <span class="p-2 rounded">{{ $user->nama }}</span>
                     </div>
-                    <div class="mb-3" style="border-radius: 7px; background-color: #BBE3ED;">
+                    <div class="mb-3" style="border-radius: 7px; background-color: #BBE3ED; padding: 6px 40px;">
                         <strong>Angkatan:</strong> 
                         <span class="p-2 rounded">{{ $user->angkatan }}</span>
                     </div>
-                    <div class="mb-3" style="border-radius: 7px; background-color: #BBE3ED;">
+                    <div class="mb-3" style="border-radius: 7px; background-color: #BBE3ED; padding: 6px 40px;">
                         <strong>NIM:</strong> 
                         <span class="p-2 rounded">{{ $user->nim }}</span>
                     </div>
-                    <div class="mb-3" style="border-radius: 7px; background-color: #BBE3ED;">
+                    <div class="mb-3" style="border-radius: 7px; background-color: #BBE3ED; padding: 6px 40px;">
                         <strong>Username:</strong> 
                         <span class="p-2 rounded">{{ $user->username }}</span>
                     </div>
-                    <div class="mb-3" style="border-radius: 7px; background-color: #BBE3ED;">
+                    <div class="mb-3" style="border-radius: 7px; background-color: #BBE3ED; padding: 6px 40px;">
                         <strong>Email Akademik:</strong> 
                         <span class="p-2 rounded">{{ $user->email }}</span>
                     </div>
-                    <div class="mb-3" style="border-radius: 7px; background-color: #BBE3ED;">
+                    <div class="mb-3" style="border-radius: 7px; background-color: #BBE3ED; padding: 6px 40px;">
                         <strong>Kelas:</strong> 
                         <span class="p-2 rounded">{{ $user->kelas }}</span>
                     </div>
-                    <div class="mb-3" style="border-radius: 7px; background-color: #BBE3ED;">
+                    <div class="mb-3" style="border-radius: 7px; background-color: #BBE3ED; padding: 6px 40px;">
                         <strong>Program Studi:</strong> 
                         <span class="p-2 rounded">{{ $user->prodi }}</span>
                     </div>
-                    <div class="mb-3" style="border-radius: 7px; background-color: #BBE3ED;">
+                    <div class="mb-3" style="border-radius: 7px; background-color: #BBE3ED; padding: 6px 40px;">
                         <strong>Wali Kelas:</strong> 
                         <span class="p-2 rounded">{{ $user->wali }}</span>
                     </div>
                 </div>
 
                 <!-- First Column: Photo -->
-                <div class="col-md-4 text-center">
+                <div class="col-md-4 text-center mt-4">
                     <img src="{{ asset($user->image ? $user->image : 'images/default-image.jpg') }}" 
                          alt="Foto Mahasiswa" 
                          class="img-fluid" 
