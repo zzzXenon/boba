@@ -16,7 +16,7 @@
             margin: 0;
         }
         .login-container {
-            background-color: #fff; /* White background for the form */
+            background-color: #E7FAFF; /* White background for the form */
             padding: 25px;
             border-radius: 10px;
             box-shadow: 0px 6px 15px rgba(0, 111, 255, 0.25); /* Soft blue shadow */
@@ -36,79 +36,51 @@
             border-radius: 7px;
             background-color: #D3E4FB; /* Light blue background for input fields */
             border: 1px solid #ccc;
-            padding: 12px;
+            padding: 6px;
         }
         .form-check-label {
             color: #333; /* Dark text color for labels */
         }
         button {
             border-radius: 7px;
-            background-color: #007BFF; /* Blue button */
+            background-color: #5AADC2; /* green button */
             border: none;
             color: white;
-            padding: 12px;
-            width: 100%;
+            padding: 7px;
+            width: 60%;
             font-size: 16px;
             margin-top: 20px;
         }
         button:hover {
-            background-color: #0056b3; /* Darker blue on hover */
+            background-color: #4F9CAF; /* Darker green on hover */
         }
-
-        .alert {
-            border-radius: 8px;
-            font-size: 14px;
-            padding: 15px 20px;
-        }
-
-        .alert-heading {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .alert ul {
-            padding-left: 20px;
-        }
-
     </style>
 </head>
-<body class="d-flex justify-content-center align-items-center vh-100">
-    <div class="w-100" style="max-width: 400px;">
-        <!-- Error Message -->
-        @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
-            <h5 class="alert-heading"><i class="bi bi-exclamation-triangle-fill"></i> Error</h5>
-            <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
-
-        <!-- Login Container -->
-        <div class="card shadow">
-            <div class="card-body text-center">
-                <h1 class="mb-3">LOGIN</h1>
-                <img src="/img/del.png" alt="Logo" class="mb-3" style="width: 100px;">
-                <p class="text-muted mb-3">Sistem Informasi Orangtua</p>
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
-                    <div class="mb-3">
-                        <input type="text" name="username" id="username" class="form-control" placeholder="Username" required>
-                    </div>
-                    <div class="mb-3">
-                        <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
-                    </div>
-                    <div class="form-check mb-3 text-start">
-                        <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                        <label class="form-check-label" for="remember">Remember Me</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Sign In</button>
-                </form>
+<body>
+    <div class="login-container text-center">
+        <h1>LOGIN</h1>
+        <img src="/img/del.png" alt="Logo" class="mb-3">
+        <p class="text-muted mb-3">Sistem Informasi Orangtua</p>
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
+            <div class="mb-0 text-start">
+                <label for="nama" class="form-label">Username :</label>
             </div>
-        </div>
+            <div class="mb-3">
+                <input type="text" name="username" id="username" class="form-control" placeholder="" required>
+            </div>
+            <div class="mb-0 text-start">
+                <label for="nama" class="form-label">Password :</label>
+            </div>
+            <div class="mb-3">
+                <input type="password" name="password" id="password" class="form-control" placeholder="" required>
+            </div>
+            <div class="form-check mb-3 text-start">
+                <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                <label class="form-check-label" for="remember">Remember Me</label>
+            </div>
+            <button type="submit">Sign In</button>
+        </form>
     </div>
 
     <!-- Bootstrap JS -->
