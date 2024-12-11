@@ -1,7 +1,9 @@
 @extends('adminlte::page')
 
 @section('title', 'List Pelanggaran')
-
+@push('css')
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+@endpush
 @section('content')
 <h3 class="title text-center mb-4 pt-5 pb-1" style="color: #333;">Data Pelanggaran</h3>
 
@@ -36,3 +38,14 @@
     </div>
 </div>
 @endsection
+@section('adminlte_css')
+    @parent
+    <!-- You can add custom CSS here if needed -->
+    <style>
+        /* Hiding navbar */
+        .main-header {
+            display: none;
+        }
+    </style>
+@endsection
+

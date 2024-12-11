@@ -2,6 +2,10 @@
 
 @section('title', 'Form Pelanggaran')
 
+@push('css')
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+@endpush
+
 @section('content')
 <div class="container mt-5">
     <h2 class="text-center mb-4">Form Pelanggaran</h2>
@@ -26,8 +30,6 @@
 
     <form action="{{ route('pelanggaran.store') }}" method="POST" class="p-4 rounded" style="max-width: 600px; margin: auto; box-shadow: 0px 5px 8px rgba(90, 173, 194, 0.54)">
         @csrf  <!-- CSRF Token -->
-        <!-- Angkatan Textbox -->
-        <h2 class="text-center mb-4">Form Pelanggaran</h2>
         <div class="mb-3">
             <label for="angkatan" class="form-label">Angkatan:</label>
             <input type="text" name="angkatan" id="angkatan" class="form-control">

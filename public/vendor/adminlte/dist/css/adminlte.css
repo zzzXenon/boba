@@ -72,6 +72,30 @@ body {
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important;
 }
+/* Warna hitam untuk background sidebar */
+.sidebar-dark-custom {
+  background-color: #000000 !important; /* Warna hitam */
+  color: #ffffff !important;           /* Warna teks putih */
+}
+
+/* Warna link sidebar */
+.sidebar-dark-custom .nav-sidebar .nav-link {
+  background-color: transparent !important; /* Background transparan untuk link */
+  color: #5AADC2 !important;               /* Warna teks aksen */
+}
+
+/* Warna link saat hover */
+.sidebar-dark-custom .nav-sidebar .nav-link:hover {
+  background-color: #4e9ca2 !important; /* Warna hover */
+  color: #ffffff !important;            /* Warna teks putih saat hover */
+}
+
+/* Warna link aktif */
+.sidebar-dark-custom .nav-sidebar .nav-link.active {
+  background-color: #5AADC2 !important; /* Warna background aktif */
+  color: #ffffff !important;            /* Warna teks putih untuk link aktif */
+}
+
 
 hr {
   box-sizing: content-box;

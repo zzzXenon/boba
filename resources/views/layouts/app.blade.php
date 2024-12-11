@@ -24,13 +24,16 @@
     </style>
 </head>
 <body>
-    @include('components.navbar')
-    @include('components.sidebar')
+    @include('components.navbar') <!-- Navbar custom kamu -->
+    
+    <!-- Menggunakan Sidebar dari AdminLTE -->
+    @include('adminlte::components.sidebar') <!-- Sidebar AdminLTE -->
+
     <div class="content-wrapper">
         @yield('content')
         @yield('scripts')
     </div>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
@@ -52,4 +55,3 @@
     </script>
 </body>
 </html>
-

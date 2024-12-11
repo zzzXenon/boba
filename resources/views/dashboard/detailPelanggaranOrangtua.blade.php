@@ -18,7 +18,6 @@
                         <th style="max-width: 30px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">Tanggal</th>
                         <th style="max-width: 100px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">Status</th>
                         <th style="max-width: 200px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">Deskripsi Pelanggaran</th>
-                        <th style="max-width: 80px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">Aksi</th>                        
                     </tr>
                 </thead>
                 <tbody>
@@ -41,17 +40,6 @@
                         <td style="max-width: 200px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">
                             {{ $pelanggaran->listPelanggaran->nama_pelanggaran }}
                         </td>
-                        <td>
-                            <!-- Status Update Form -->
-                            <form action="{{ route('pelanggaran.update_status', $pelanggaran->id) }}" method="POST" class="d-inline-block">
-                              @csrf
-                              <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
-                                  <option value="Belum Diperiksa" {{ $pelanggaran->status == 'Belum Diperiksa' ? 'selected' : '' }}>Belum Diperiksa</option>
-                                  <option value="Diperiksa" {{ $pelanggaran->status == 'Diperiksa' ? 'selected' : '' }}>Diperiksa</option>
-                                  <option value="Selesai" {{ $pelanggaran->status == 'Selesai' ? 'selected' : '' }}>Selesai</option>
-                              </select>
-                            </form>
-                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -70,12 +58,5 @@
   </div>
   @endforeach 
 
-  <form action="{{ route('pelanggaran.storeComment', $pelanggaran->id) }}" method="POST" class="mt-4">
-      @csrf
-      <div class="form-group">
-          <textarea name="comment" class="form-control" placeholder="Add a comment"></textarea>
-      </div>
-      <button type="submit" class="btn mt-2 text-white" style="background-color: #5AADC2">Kirim Tanggapan</button>
-  </form>
 </div>
 @endsection
