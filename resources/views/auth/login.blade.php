@@ -54,33 +54,65 @@
         button:hover {
             background-color: #4F9CAF; /* Darker green on hover */
         }
+
+        .alert {
+            border-radius: 8px;
+            font-size: 14px;
+            padding: 15px 20px;
+        }
+
+        .alert-heading {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .alert ul {
+            padding-left: 20px;
+        }
+
     </style>
 </head>
-<body>
-    <div class="login-container text-center">
-        <h1>LOGIN</h1>
-        <img src="/img/del.png" alt="Logo" class="mb-3">
-        <p class="text-muted mb-3">Sistem Informasi Orangtua</p>
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-            <div class="mb-0 text-start">
-                <label for="nama" class="form-label">Username :</label>
-            </div>
-            <div class="mb-3">
-                <input type="text" name="username" id="username" class="form-control" placeholder="" required>
-            </div>
-            <div class="mb-0 text-start">
-                <label for="nama" class="form-label">Password :</label>
-            </div>
-            <div class="mb-3">
-                <input type="password" name="password" id="password" class="form-control" placeholder="" required>
-            </div>
-            <div class="form-check mb-3 text-start">
-                <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                <label class="form-check-label" for="remember">Remember Me</label>
-            </div>
-            <button type="submit">Sign In</button>
-        </form>
+<body class="d-flex justify-content-center align-items-center vh-100">
+    <div class="w-100" style="max-width: 400px;">
+        <!-- Error Message -->
+        @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+            <h5 class="alert-heading"><i class="bi bi-exclamation-triangle-fill"></i> Error</h5>
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        <!-- Login Container -->
+        <div class="login-container text-center">
+            <h1>LOGIN</h1>
+            <img src="/img/del.png" alt="Logo" class="mb-3">
+            <p class="text-muted mb-3">Sistem Informasi Orangtua</p>
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+                <div class="mb-0 text-start">
+                    <label for="nama" class="form-label">Username :</label>
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="username" id="username" class="form-control" placeholder="" required>
+                </div>
+                <div class="mb-0 text-start">
+                    <label for="nama" class="form-label">Password :</label>
+                </div>
+                <div class="mb-3">
+                    <input type="password" name="password" id="password" class="form-control" placeholder="" required>
+                </div>
+                <div class="form-check mb-3 text-start">
+                    <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                    <label class="form-check-label" for="remember">Remember Me</label>
+                </div>
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
     </div>
 
     <!-- Bootstrap JS -->
