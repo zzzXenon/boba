@@ -16,7 +16,7 @@
             margin: 0;
         }
         .login-container {
-            background-color: #fff; /* White background for the form */
+            background-color: #E7FAFF; /* White background for the form */
             padding: 25px;
             border-radius: 10px;
             box-shadow: 0px 6px 15px rgba(0, 111, 255, 0.25); /* Soft blue shadow */
@@ -36,23 +36,23 @@
             border-radius: 7px;
             background-color: #D3E4FB; /* Light blue background for input fields */
             border: 1px solid #ccc;
-            padding: 12px;
+            padding: 6px;
         }
         .form-check-label {
             color: #333; /* Dark text color for labels */
         }
         button {
             border-radius: 7px;
-            background-color: #007BFF; /* Blue button */
+            background-color: #5AADC2; /* green button */
             border: none;
             color: white;
-            padding: 12px;
-            width: 100%;
+            padding: 7px;
+            width: 60%;
             font-size: 16px;
             margin-top: 20px;
         }
         button:hover {
-            background-color: #0056b3; /* Darker blue on hover */
+            background-color: #4F9CAF; /* Darker green on hover */
         }
     </style>
 </head>
@@ -63,11 +63,17 @@
         <p class="text-muted mb-3">Sistem Informasi Orangtua</p>
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            <div class="mb-3">
-                <input type="text" name="username" id="username" class="form-control" placeholder="Username" required>
+            <div class="mb-0 text-start">
+                <label for="nama" class="form-label">Username :</label>
             </div>
             <div class="mb-3">
-                <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+                <input type="text" name="username" id="username" class="form-control" placeholder="" required>
+            </div>
+            <div class="mb-0 text-start">
+                <label for="nama" class="form-label">Password :</label>
+            </div>
+            <div class="mb-3">
+                <input type="password" name="password" id="password" class="form-control" placeholder="" required>
             </div>
             <div class="form-check mb-3 text-start">
                 <input type="checkbox" class="form-check-input" id="remember" name="remember">
