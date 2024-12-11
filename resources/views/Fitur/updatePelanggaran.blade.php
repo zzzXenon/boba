@@ -23,62 +23,63 @@
 @endsection
 
 @section('content')
-@if(session('success'))
-<div class="alert alert-success">
-    {{ session('success') }}
-</div>
-@endif
 
-<div class="container mt-5">
-    <div class="card border-0" style="border-radius: 7px; background-color: #E4E9EF; box-shadow: 0px 6px 8px rgba(0, 111, 255, 0.25);">
-        <div class="card-body p-4">
-            <h3 class="card-title text-center mb-4" style="border-bottom: 2px solid #ddd; padding-bottom: 10px; color: #333;">
-                Update Status Pelanggaran
-            </h3>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Nama Mahasiswa</th>
-                        <th>Jenis Pelanggaran</th>
-                        <th>Tanggal</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($pelanggaranList as $pelanggaran)
-                    <tr>
-                        <td>{{ $pelanggaran->user->nama ?? 'N/A' }}</td>
-                        <td>{{ $pelanggaran->listPelanggaran->nama_pelanggaran ?? 'N/A' }}</td>
-                        <td>{{ $pelanggaran->created_at->format('d-m-Y') }}</td>
-                        <td>
-                            <!-- Status Badge -->
-                            @if($pelanggaran->status == 'Belum Diperiksa')
-                                <span class="badge badge-belum">Belum Diperiksa</span>
-                            @elseif($pelanggaran->status == 'Diperiksa')
-                                <span class="badge badge-diperiksa">Diperiksa</span>
-                            @elseif($pelanggaran->status == 'Selesai')
-                                <span class="badge badge-selesai">Selesai</span>
-                            @endif
-                        </td>
-                        <td>
-                            <!-- Status Update Form -->
-                            <form action="{{ route('pelanggaran.update_status', $pelanggaran->id) }}" method="POST" class="d-inline-block">
-                              @csrf
-                              <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
-                                  <option value="Belum Diperiksa" {{ $pelanggaran->status == 'Belum Diperiksa' ? 'selected' : '' }}>Belum Diperiksa</option>
-                                  <option value="Diperiksa" {{ $pelanggaran->status == 'Diperiksa' ? 'selected' : '' }}>Diperiksa</option>
-                                  <option value="Selesai" {{ $pelanggaran->status == 'Selesai' ? 'selected' : '' }}>Selesai</option>
-                              </select>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
+
+    <div class="container mt-5">
+        <div class="card border-0" style="border-radius: 7px; background-color: #E4E9EF; box-shadow: 0px 6px 8px rgba(0, 111, 255, 0.25);">
+            <div class="card-body p-4">
+                <h3 class="card-title text-center mb-4" style="border-bottom: 2px solid #ddd; padding-bottom: 10px; color: #333;">
+                    Update Status Pelanggaran
+                </h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nama Mahasiswa</th>
+                            <th>Jenis Pelanggaran</th>
+                            <th>Tanggal</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($pelanggaranList as $pelanggaran)
+                        <tr>
+                            <td>{{ $pelanggaran->user->nama ?? 'N/A' }}</td>
+                            <td>{{ $pelanggaran->listPelanggaran->nama_pelanggaran ?? 'N/A' }}</td>
+                            <td>{{ $pelanggaran->created_at->format('d-m-Y') }}</td>
+                            <td>
+                                <!-- Status Badge -->
+                                @if($pelanggaran->status == 'Belum Diperiksa')
+                                    <span class="badge badge-belum">Belum Diperiksa</span>
+                                @elseif($pelanggaran->status == 'Diperiksa')
+                                    <span class="badge badge-diperiksa">Diperiksa</span>
+                                @elseif($pelanggaran->status == 'Selesai')
+                                    <span class="badge badge-selesai">Selesai</span>
+                                @endif
+                            </td>
+                            <td>
+                                <!-- Status Update Form -->
+                                <form action="{{ route('pelanggaran.update_status', $pelanggaran->id) }}" method="POST" class="d-inline-block">
+                                @csrf
+                                <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+                                    <option value="Belum Diperiksa" {{ $pelanggaran->status == 'Belum Diperiksa' ? 'selected' : '' }}>Belum Diperiksa</option>
+                                    <option value="Diperiksa" {{ $pelanggaran->status == 'Diperiksa' ? 'selected' : '' }}>Diperiksa</option>
+                                    <option value="Selesai" {{ $pelanggaran->status == 'Selesai' ? 'selected' : '' }}>Selesai</option>
+                                </select>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 @endsection
 
 

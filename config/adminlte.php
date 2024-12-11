@@ -317,33 +317,33 @@ return [
             'text' => 'Dashboard Ortu',
             'url' => 'dashboard/orangtua',
             'icon' => 'far fa-fw fa-file',
-            // 'can' => 'isOrangTua',
+            'can' => 'access-ortu',
         ],
         [
             'text' => 'Pelanggaran',
             'url' => 'detail-mahasiswa',
             'icon' => 'far fa-fw fa-file',
-            // 'can' => 'isOrangTua',
+            'can' => 'access-ortu',
         ],
 
         [
             'text' => 'Dashboard Admin',
             'url' => 'dashboard/admin',
             'icon' => 'far fa-fw fa-file',
-            // 'can' => 'isAdmin',
+            'can' => 'access-admin',
         ],
 
         [
             'text' => 'Tambah Pelanggaran',
             'url' => 'pelanggaran/add',
             'icon' => 'fas fa-fw fa-file',
-            // 'can' => 'isKeasramaan',
+            'can' => 'access-admin',
         ],
         [
             'text' => 'Update Pelanggaran',
             'url' => 'pelanggaran/update',
             'icon' => 'fas fa-fw fa-file',
-            // 'can' => 'isKemahasiswaan',
+            'can',
         ],
     ],
 
