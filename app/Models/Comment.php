@@ -9,7 +9,8 @@ class Comment extends Model
     protected $fillable = [
         'pelanggaran_id',
         'user_id',
-        'comment'
+        'comment',
+        'file_path',
     ];
 
     public function pelanggaran()

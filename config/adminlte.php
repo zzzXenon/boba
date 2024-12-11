@@ -314,46 +314,36 @@ return [
 
         // Sidebar items:
         [
-            'text' => 'Dashboard',
+            'text' => 'Dashboard Ortu',
             'url' => 'dashboard/orangtua',
             'icon' => 'far fa-fw fa-file',
-            'can' => function () {
-                return Gate::allows('isOrangTua');
-            },
+            // 'can' => 'isOrangTua',
         ],
         [
             'text' => 'Pelanggaran',
-            'url' => '???',
+            'url' => 'detail-mahasiswa',
             'icon' => 'far fa-fw fa-file',
-            'can' => function () {
-                return Gate::allows('isOrangTua');
-            },
+            // 'can' => 'isOrangTua',
         ],
 
         [
-            'text' => 'Dashboard',
+            'text' => 'Dashboard Admin',
             'url' => 'dashboard/admin',
             'icon' => 'far fa-fw fa-file',
-            'can' => function () {
-                return Gate::allows('isAdmin');
-            },
+            // 'can' => 'isAdmin',
         ],
 
         [
             'text' => 'Tambah Pelanggaran',
             'url' => 'pelanggaran/add',
             'icon' => 'fas fa-fw fa-file',
-            'can' => function () {
-                return Gate::allows('isKeasramaan');
-            },
+            // 'can' => 'isKeasramaan',
         ],
         [
-            'text' => 'Tambah Pelanggaran',
-            'url' => 'pelanggaran/add',
+            'text' => 'Update Pelanggaran',
+            'url' => 'pelanggaran/update',
             'icon' => 'fas fa-fw fa-file',
-            'can' => function () {
-                return Gate::allows('isKemahasiswaan');
-            },
+            // 'can' => 'isKemahasiswaan',
         ],
     ],
 

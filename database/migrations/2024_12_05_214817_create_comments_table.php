@@ -13,6 +13,7 @@ return new class extends Migration
             $table->unsignedBigInteger('pelanggaran_id');
             $table->unsignedBigInteger('user_id');
             $table->text('comment');
+            $table->string('file_path')->nullable();
             $table->timestamps();
 
             $table->foreign('pelanggaran_id')->references('id')->on('pelanggaran')->onDelete('cascade');
