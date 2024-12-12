@@ -29,6 +29,10 @@ class DashboardController extends Controller
 
   public function showDashboardAdmin()
   {
+    if (Gate::denies('access-admin')) {
+      abort(403, 'Unauthorized action.');
+    }
+
     $user = Auth::user();
 
     // Fetch pelanggaran data based on role

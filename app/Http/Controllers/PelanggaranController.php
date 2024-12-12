@@ -114,7 +114,7 @@ class PelanggaranController extends Controller
     {
         $pelanggaranList = Pelanggaran::with('user')->get();
 
-        return view('fitur.updatePelanggaran', compact('pelanggaranList'));
+        return view('fitur.detailPelanggaran', compact('pelanggaranList'));
     }
 
     public function updateStatus(Request $request, $id)
