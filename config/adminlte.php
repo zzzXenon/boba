@@ -314,7 +314,7 @@ return [
 
         // Sidebar items:
         [
-            'text' => 'Dashboard Ortu',
+            'text' => 'Dashboard',
             'url' => 'dashboard/orangtua',
             'icon' => 'far fa-fw fa-file',
             'can' => 'access-ortu',
@@ -327,7 +327,7 @@ return [
         ],
 
         [
-            'text' => 'Dashboard Admin',
+            'text' => 'Dashboard',
             'url' => 'dashboard/admin',
             'icon' => 'far fa-fw fa-file',
             'can' => 'access-admin',

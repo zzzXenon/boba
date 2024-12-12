@@ -27,13 +27,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Role-based dashboard routes
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard/orangtua', function () {
-        return view('dashboard.orangtua');
-    })->name('dashboard.orangtua');
-
-    Route::get('/dashboard/admin', function () {
-        return view('dashboard.admin');
-    })->name('dashboard.admin');
 
     Route::get('/dashboard/orangtua', [DashboardController::class, 'showDashboardOrangtua'])->name('dashboard.orangtua');
     Route::get('/dashboard/admin', [DashboardController::class, 'showDashboardAdmin'])->name('dashboard.admin');
@@ -44,9 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/detail-mahasiswa', [PelanggaranController::class, 'showPelanggaran'])->name('detailMahasiswa');
 
     Route::get('/pelanggaran/update', [PelanggaranController::class, 'updatePelanggaran'])->name('updatePelanggaran');
-    Route::post('/pelanggaran/update', [PelanggaranController::class, 'updatePelanggaranStatus'])->name('updatePelanggaranStatus');
-
-    Route::post('/update-pelanggaran-status', [PelanggaranController::class, 'updatePelanggaranStatus'])->name('updatePelanggaranStatus');
+    Route::post('/pelanggaran/update', [PelanggaranController::class, 'updatePelanggaranStatus'])->name('updateStatus');
     Route::post('/pelanggaran/{id}/update-status', [PelanggaranController::class, 'updateStatus'])->name('pelanggaran.update_status');
 
     Route::prefix('pelanggaran')->group(function () {

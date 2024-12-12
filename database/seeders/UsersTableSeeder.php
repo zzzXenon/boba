@@ -21,7 +21,7 @@ class UsersTableSeeder extends Seeder
                 'email' => 'mariosijabat@del.ac.id',
                 'kelas' => 'Kelas A',
                 'prodi' => 'S1 Informatika',
-                'wali' => 'Wali Ortu',
+                'wali' => 'Iustisia Natalia Simbolon, S.Kom., M.T.',
                 'role' => 'Orang Tua',
                 'image' => '/img/pp.jpg'
             ],

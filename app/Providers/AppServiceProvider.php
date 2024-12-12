@@ -24,6 +24,6 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('access-ortu', [RolePolicy::class, 'accessOrtu']);
         Gate::define('access-dosen', [RolePolicy::class, 'accessDosen']);
         Gate::define('access-admin', [RolePolicy::class, 'accessAdmin']);
-        Gate::define('access-atasan', [RolePolicy::class, 'accessAtasan']);
+        Gate::define('access-kemkem', [RolePolicy::class, 'accessKemKem']);
     }
 }

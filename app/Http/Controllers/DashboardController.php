@@ -33,10 +33,31 @@ class DashboardController extends Controller
       abort(403, 'Unauthorized action.');
     }
 
-    // Fetch data with relationships
-    $pelanggaran = Pelanggaran::with('user', 'listPelanggaran')->get();
+    $user = Auth::user();
 
-    // Pass the data to the Blade view
+    // Fetch pelanggaran data based on role
+    if ($user->role === 'Orang Tua') {
+      $pelanggaran = Pelanggaran::with('user', 'listPelanggaran')
+        ->whereHas('user', function ($query) use ($user) {
+          $query->where('wali', $user->nama);
+        })
+        ->get();
+    } elseif (in_array($user->role, ['Keasramaan', 'Kemahasiswaan'])) {
+      $pelanggaran = Pelanggaran::with('user', 'listPelanggaran')->get();
+    } elseif (in_array($user->role, ['Komisi Disiplin', 'Rektor'])) {
+      $pelanggaran = Pelanggaran::with('user', 'listPelanggaran')
+        ->whereHas('listPelanggaran', function ($query) {
+          $query->where('poin', '>', 25);
+        })
+        ->get();
+    } elseif ($user->role === 'Dosen') {
+      $pelanggaran = Pelanggaran::with('user', 'listPelanggaran')
+        ->whereHas('user', function ($query) use ($user) {
+          $query->where('wali', $user->nama);
+        })
+        ->get();
+    }
+
     return view('dashboard.admin', compact('pelanggaran'));
   }
 }
