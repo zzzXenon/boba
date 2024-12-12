@@ -198,9 +198,9 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-custom elevation-4',  // Ini adalah pengaturan default
+    'classes_sidebar' => 'sidebar-dark-custom elevation-4',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-dark',
+    'classes_topnav' => 'navbar-gray navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 

@@ -26,8 +26,7 @@
 <body>
     @include('components.navbar') <!-- Navbar custom kamu -->
     
-    <!-- Menggunakan Sidebar dari AdminLTE -->
-    @include('adminlte::components.sidebar') <!-- Sidebar AdminLTE -->
+    @include('components.sidebar')
 
     <div class="content-wrapper">
         @yield('content')

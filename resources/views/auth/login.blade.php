@@ -35,12 +35,18 @@
         .form-control {
             border-radius: 7px;
             background-color: #D3E4FB; /* Light blue background for input fields */
-            border: 1px solid #ccc;
+            border: 2px solid #B9BBDC;
             padding: 6px;
         }
         .form-check-label {
             color: #333; /* Dark text color for labels */
+            font-size: 14px;
         }
+
+        .form-check-input {
+            border: 2px solid #B9BBDC;
+        }
+
         button {
             border-radius: 7px;
             background-color: #5AADC2; /* green button */
@@ -69,7 +75,6 @@
         .alert ul {
             padding-left: 20px;
         }
-
     </style>
 </head>
 <body class="d-flex justify-content-center align-items-center vh-100">

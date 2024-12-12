@@ -89,13 +89,6 @@ class User extends Authenticatable
 
     public function adminlte_image()
     {
-        // Jika gambar profil ada di database, gunakan path dari kolom 'image'
-        if ($this->image) {
-            return asset('public/' . $this->image);
-        }
-
-        // Jika tidak ada, gunakan gambar default
-        return asset('img/del.png');
+        return asset('/img/shutdown.png'); // Pastikan file ada di 'public/images/'
     }
-
 }

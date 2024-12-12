@@ -38,14 +38,3 @@
     </div>
 </div>
 @endsection
-@section('adminlte_css')
-    @parent
-    <!-- You can add custom CSS here if needed -->
-    <style>
-        /* Hiding navbar */
-        .main-header {
-            display: none;
-        }
-    </style>
-@endsection
-
