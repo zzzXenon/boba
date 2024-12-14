@@ -10,6 +10,17 @@ use Illuminate\Support\Facades\Gate;
 
 class DashboardController extends Controller
 {
+  public function home()
+  {
+    $user = Auth::user();
+
+    if ($user->role === 'Orang Tua') {
+      return redirect()->route('dashboard.orangtua');
+    }
+
+    return redirect()->route('dashboard.admin');
+  }
+
   public function showDashboardOrangtua()
   {
     if (Gate::denies('access-ortu')) {

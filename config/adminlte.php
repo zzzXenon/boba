@@ -321,7 +321,7 @@ return [
         ],
         [
             'text' => 'Pelanggaran',
-            'url' => 'detail-mahasiswa',
+            'url' => 'pelanggaran-mahasiswa',
             'icon' => 'far fa-fw fa-file',
             'can' => 'access-ortu',
         ],
@@ -338,12 +338,6 @@ return [
             'url' => 'pelanggaran/add',
             'icon' => 'fas fa-fw fa-file',
             'can' => 'access-admin',
-        ],
-        [
-            'text' => 'Update Pelanggaran',
-            'url' => 'pelanggaran/update',
-            'icon' => 'fas fa-fw fa-file',
-            'can',
         ],
     ],
 

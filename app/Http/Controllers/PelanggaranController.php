@@ -2,23 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pelanggaran;
-use App\Models\Comment;
 use App\Models\User;
-use App\Models\ListPelanggaran;
+use App\Models\Comment;
+use App\Models\Pelanggaran;
 use Illuminate\Http\Request;
+use App\Models\PelanggaranLog;
+use App\Models\ListPelanggaran;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
 class PelanggaranController extends Controller
 {
-    public function showPelanggaran()
+    public function showPelanggaranMhs()
     {
         $userId = Auth::id();
 
         $pelanggaranList = Pelanggaran::where('user_id', $userId)->get();
 
-        return view('fitur.detailMahasiswa', compact('pelanggaranList'));
+        return view('fitur.pelanggaranMahasiswa', compact('pelanggaranList'));
+    }
+
+    public function showDetailMahasiswa($id)
+    {
+        // Retrieve the pelanggaran record by its ID
+        $pelanggaran = Pelanggaran::findOrFail($id);
+
+        // Fetch logs with user data
+        $pelanggaranLogs = PelanggaranLog::where('pelanggaran_id', $id)
+            ->join('users', 'pelanggaran_logs.user_id', '=', 'users.id')
+            ->select(
+                'pelanggaran_logs.*',
+                'users.nama as user_nama',
+                'users.role as user_role'
+            )
+            ->orderBy('pelanggaran_logs.created_at', 'desc')
+            ->get();
+
+        return view('fitur.detailMahasiswa', [
+            'pelanggaran' => $pelanggaran,
+            'pelanggaranLogs' => $pelanggaranLogs
+        ]);
     }
 
     public function showComments($id)
@@ -26,7 +49,6 @@ class PelanggaranController extends Controller
         // Fetch the pelanggaran record with related comments, user, and listPelanggaran data
         $pelanggaran = Pelanggaran::with(['user', 'listPelanggaran', 'comments.user'])->findOrFail($id);
 
-        // Pass the data to the view
         return view('fitur.detailPelanggaran', compact('pelanggaran'));
     }
 
@@ -44,16 +66,27 @@ class PelanggaranController extends Controller
             $filePath = $request->file('file')->store('files', 'public');
         }
 
-        Comment::create([
+        // Create the comment
+        $comment = Comment::create([
             'pelanggaran_id' => $pelanggaran->id,
             'user_id' => $request->user()->id,
             'comment' => $request->comment,
             'file_path' => $filePath,
         ]);
 
+        // Log the action
+        PelanggaranLog::create([
+            'pelanggaran_id' => $pelanggaran->id,
+            'user_id' => $request->user()->id,
+            'action' => 'New Comment Added',
+            'details' => $request->comment,
+        ]);
+
+
         return redirect()->route('pelanggaran.showComments', $pelanggaran->id)
             ->with('success', 'Berhasil membuat tanggapan!');
     }
+
 
     public function create()
     {
@@ -119,10 +152,32 @@ class PelanggaranController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        $pelanggaran = Pelanggaran::findOrFail($id);
-        $pelanggaran->status = $request->input('status');
-        $pelanggaran->save();
+        $request->validate([
+            'status' => 'required|string|max:255',
+        ]);
 
-        return back()->with('success', 'Berhasil mengubah status pelanggaran!.');
+        $pelanggaran = Pelanggaran::findOrFail($id);
+
+        // Check if the status has changed
+        if ($pelanggaran->status !== $request->status) {
+            $oldStatus = $pelanggaran->status;
+            $pelanggaran->status = $request->status;
+            $pelanggaran->save();
+
+            // Log the action
+            PelanggaranLog::create([
+                'pelanggaran_id' => $pelanggaran->id,
+                'user_id' => $request->user()->id,
+                'action' => 'Update Status',
+                'details' => "{$request->status}",
+                // 'details' => "Status changed from '$oldStatus' to '{$request->status}'",
+            ]);
+
+            return redirect()->route('pelanggaran.showComments', $id)
+                ->with('success', 'Status berhasil diperbarui!');
+        }
+
+        return redirect()->route('pelanggaran.showComments', $id)
+            ->with('info', 'Tidak ada perubahan status.');
     }
 }

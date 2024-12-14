@@ -7,24 +7,8 @@
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/status.css') }}">
 @endpush
-
-@section('head')
-    <style>
-        .badge-belum {
-            background-color: #dc3545;
-            color: #fff;
-        }
-        .badge-diperiksa {
-            background-color: #ffc107;
-            color: #000;
-        }
-        .badge-selesai {
-            background-color: #28a745;
-            color: #fff;
-        }
-    </style>
-@endsection
 
 @section('content')
 <div class="container mt-5">
@@ -66,7 +50,7 @@
                         </td>
                         <td>
                             <!-- Status Update Action -->
-                            <form action="{{ route('pelanggaran.update_status', $pelanggaran->id) }}" method="POST" class="d-inline-block" id="statusForm">
+                            <form action="{{ route('pelanggaran.updateStatus', $pelanggaran->id) }}" method="POST" class="d-inline-block" id="statusForm">
                               @csrf
                               <select name="status" class="form-select form-select-sm status-select" id="statusSelect">
                                   <option value="Belum Diperiksa" {{ $pelanggaran->status == 'Belum Diperiksa' ? 'selected' : '' }} class="select-belum">Belum Diperiksa</option>
@@ -97,9 +81,11 @@
 
       <!-- Check and display download link if a file is attached -->
       @if ($comment->file_path)
-          <p><strong>File Name:</strong> {{ $comment->file }}</p>
           <p>
-              <a href="{{ asset('storage/files/' . $comment->file) }}" class="btn btn-sm btn-success" download>
+              <a href="{{ asset('storage/files/' . $comment->file) }}" 
+                class="btn btn-sm mt-2" 
+                style="background-color: #5AADC2; color: white;" 
+                download>
                   Download Attached File
               </a>
           </p>

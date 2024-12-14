@@ -28,7 +28,7 @@ class RolePolicy
 
     public function accessAdmin(User $user)
     {
-        $allowedRoles = ['Keasramaan', 'Kemahasiswaan', 'Dosen', 'Komisi Disiplin', 'Kemahasiswaan'];
+        $allowedRoles = ['Keasramaan', 'Kemahasiswaan', 'Dosen', 'Komisi Disiplin', 'Rektor'];
 
         return in_array($user->role, $allowedRoles);
     }
