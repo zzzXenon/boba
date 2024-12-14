@@ -13,7 +13,10 @@ class DashboardController extends Controller
   public function home()
   {
     $user = Auth::user();
-
+    if (!$user) {
+      // Jika pengguna belum login, redirect ke halaman login atau tampilkan pesan error
+      return redirect()->route('login');
+    }
     if ($user->role === 'Orang Tua') {
       return redirect()->route('dashboard.orangtua');
     }

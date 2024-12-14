@@ -6,82 +6,22 @@
     <title>Login</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts (Pastikan font 'Source Sans 3' terimport) -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #f0f8ff; /* Light background color */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .login-container {
-            background-color: #E7FAFF; /* White background for the form */
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0px 6px 15px rgba(0, 111, 255, 0.25); /* Soft blue shadow */
-            width: 100%;
-            max-width: 400px;
-        }
-        .login-container img {
-            width: 80px;
-            margin-bottom: 20px;
-        }
-        h1 {
-            color: #333;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-        .form-control {
-            border-radius: 7px;
-            background-color: #D3E4FB; /* Light blue background for input fields */
-            border: 2px solid #B9BBDC;
-            padding: 6px;
-        }
-        .form-check-label {
-            color: #333; /* Dark text color for labels */
-            font-size: 14px;
-        }
-
-        .form-check-input {
-            border: 2px solid #B9BBDC;
-        }
-
-        button {
-            border-radius: 7px;
-            background-color: #5AADC2; /* green button */
-            border: none;
-            color: white;
-            padding: 7px;
-            width: 60%;
-            font-size: 16px;
-            margin-top: 20px;
-        }
-        button:hover {
-            background-color: #4F9CAF; /* Darker green on hover */
-        }
-
-        .alert {
-            border-radius: 8px;
-            font-size: 14px;
-            padding: 15px 20px;
-        }
-
-        .alert-heading {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .alert ul {
-            padding-left: 20px;
+            font-family: 'Source Sans 3', sans-serif; /* Font */
+            font-size: 14px; /* Ukuran font */
+            color: #484444
         }
     </style>
+        @favicon
 </head>
-<body class="d-flex justify-content-center align-items-center vh-100">
+<body class="d-flex justify-content-center align-items-center vh-100" style="background-color: #f0f8ff; margin: 0;">
     <div class="w-100" style="max-width: 400px;">
         <!-- Error Message -->
         @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert" style="border-radius: 8px; font-size: 14px; padding: 15px 20px;">
             <h5 class="alert-heading"><i class="bi bi-exclamation-triangle-fill"></i> Error</h5>
             <ul class="mb-0">
                 @foreach ($errors->all() as $error)
@@ -93,34 +33,45 @@
         @endif
 
         <!-- Login Container -->
-        <div class="login-container text-center">
-            <h1>LOGIN</h1>
-            <img src="/img/del.png" alt="Logo" class="mb-3">
-            <p class="text-muted mb-3">Sistem Informasi Orangtua</p>
+        <div class=" text-center p-4" style="background-color: #E7FAFf; border-radius: 23px; box-shadow: 0px 0px 30px rgba(0, 111, 255, 0.35);">
+            <h1 class="fs-4 fw-bold mb-3" style="color: #484444">LOGIN</h1>
+            <img src="/vendor/adminlte/dist/img/app-logo-color.png" alt="Logo" class="mb-3" style="width: 100px; border-radius: 50%; box-shadow: 0px 0px 15px rgb(21, 138, 167);">
+            <p class="text-muted mb-3 ">Pelanggaran Mahasiswa IT Del</p>
+            <hr style="border-top: 2px solid #B9BBDC;" class="mx-auto" style="width: 100%;">
             <form method="POST" action="{{ route('login') }}">
                 @csrf
-                <div class="mb-0 text-start">
-                    <label for="nama" class="form-label">Username :</label>
+                <!-- Username Field -->
+                <div class="mb-3 text-start">
+                    <label for="username" class="form-label fw-bold">Username :</label>
+                    <input type="text" name="username" id="username" class="form-control" required
+                           style="border-radius: 7px; background-color:rgb(205, 229, 238); border: 2px solid #B9BBDC; padding: 6px;">
                 </div>
-                <div class="mb-3">
-                    <input type="text" name="username" id="username" class="form-control" placeholder="" required>
+                <!-- Password Field -->
+                <div class="mb-3 text-start">
+                    <label for="password" class="form-label fw-bold">Password :</label>
+                    <input type="password" name="password" id="password" class="form-control" required
+                           style="border-radius: 7px; background-color:rgb(205, 229, 238); border: 2px solid #B9BBDC; padding: 6px;">
                 </div>
-                <div class="mb-0 text-start">
-                    <label for="nama" class="form-label">Password :</label>
-                </div>
-                <div class="mb-3">
-                    <input type="password" name="password" id="password" class="form-control" placeholder="" required>
-                </div>
+                <!-- Remember Me Checkbox -->
                 <div class="form-check mb-3 text-start">
-                    <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                    <label class="form-check-label" for="remember">Remember Me</label>
+                    <input type="checkbox" class="form-check-input" id="remember" name="remember"
+                           style="border: 2px solid #B9BBDC;">
+                    <label class="form-check-label fs-7 text-dark" for="remember">Remember Me</label>
                 </div>
-                <button type="submit">Sign In</button>
+                <!-- Submit Button -->
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn text-white fw-bold"
+                            style="background-color: #5AADC2; border-radius: 7px; border: none; padding: 7px; width: 60%; font-size: 16px; margin-top: 20px;"
+                            onmouseover="this.style.backgroundColor='#4F9CAF'"
+                            onmouseout="this.style.backgroundColor='#5AADC2'">
+                        Sign In
+                    </button>
+                </div>
             </form>
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap JS (Untuk komponen interaktif) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

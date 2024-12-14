@@ -3,9 +3,19 @@
 @section('title', 'List Pelanggaran')
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+        <!-- Google Fonts (Pastikan font 'Source Sans 3' terimport) -->
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3&display=swap" rel="stylesheet">
+        <style>
+        body {
+            font-family: 'Source Sans 3', sans-serif; /* Font */
+            font-size: 15px; /* Ukuran font */
+            color: #484444
+        }
+    </style>
 @endpush
+@favicon
 @section('content')
-<h3 class="title text-center mb-4 pt-5 pb-1" style="color: #333;">Data Pelanggaran</h3>
+<h3 class="title text-center mb-4 pt-5 pb-1" style="color: #333; font-weight: bold; font-size: 24px;">Data Pelanggaran</h3>
 
 <div class="container mt-2">
     <div class="card-body p-4">
