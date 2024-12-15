@@ -17,7 +17,9 @@ class PelanggaranController extends Controller
     {
         $userId = Auth::id();
 
-        $pelanggaranList = Pelanggaran::where('user_id', $userId)->get();
+        $pelanggaranList = Pelanggaran::where('user_id', $userId)
+        ->orderBy('created_at', 'desc') 
+        ->get();
 
         return view('fitur.pelanggaranMahasiswa', compact('pelanggaranList'));
     }

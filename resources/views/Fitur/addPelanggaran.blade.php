@@ -78,6 +78,12 @@
             @endif
         </div>
 
+        <!-- test Textbox -->
+        <div class="mb-3">
+            <label for="comment" class="form-label">Laporan:</label>
+            <textarea name="comment" id="comment" class="form-control" rows="4" required>{{ old('comment') }}</textarea>
+        </div>
+
         <!-- Submit Button -->
         <div class="text-center">
             <button type="submit" class="btn text-bold mt-5" style="background-color: #5AADC2; padding: 5px 22px; color: #fff">Kirim</button>
@@ -147,8 +153,6 @@
     .select2-selection__clear:hover {
         background-color: darkred !important; /* Warna latar belakang lebih gelap saat hover */
     }
-</style>
-
     </style>
 @endsection
 

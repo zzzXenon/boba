@@ -30,12 +30,16 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/{id}/comments', [PelanggaranController::class, 'storeComment'])->name('pelanggaran.storeComment');
         Route::get('/update', [PelanggaranController::class, 'updatePelanggaran'])->name('updatePelanggaran');
         Route::post('/{id}/update-status', [PelanggaranController::class, 'updateStatus'])->name('pelanggaran.updateStatus');
+
+        // Tambahkan route pencarian
+        Route::get('/search', [DashboardController::class, 'search'])->name('pelanggaran.search');
     });
 
     // Detail Mahasiswa Route
     Route::get('/pelanggaran-mahasiswa', [PelanggaranController::class, 'showPelanggaranMhs'])->name('pelanggaranMahasiswa');
     Route::get('/pelanggaran-mahasiswa/{id}/', [PelanggaranController::class, 'showDetailMahasiswa'])->name('pelanggaranMahasiswa.detail');
 });
+
 
 
 // Route::middleware(['auth'])->group(function () {
