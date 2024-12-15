@@ -31,9 +31,14 @@
                         <th style="max-width: 150px; word-wrap: break-word;">Prodi</th>
                         <th style="max-width: 200px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">Deskripsi Pelanggaran</th>
                         <th style="max-width: 80px; word-wrap: break-word;">Poin</th>
+<<<<<<< Updated upstream
                         <th>Tanggal</th>
                         <th>Status</th>
                         <th>Aksi</th>
+=======
+                        <th style="max-width: 30px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">Tanggal</th>
+                        <th style="max-width: 100px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">Status</th>                     
+>>>>>>> Stashed changes
                     </tr>
                 </thead>
                 <tbody>
@@ -46,15 +51,14 @@
                         <td>{{ $pelanggaran->created_at->format('d-m-Y') }}</td>
                         <td>
                             <!-- Status Badge -->
-                            @if($pelanggaran->status == 'Belum Diperiksa')
-                                <span class="badge badge-belum">Belum Diperiksa</span>
-                            @elseif($pelanggaran->status == 'Diperiksa')
-                                <span class="badge badge-diperiksa">Diperiksa</span>
+                            @if($pelanggaran->status == 'Sedang diproses')
+                                <span class="badge badge-belum">Sedang diproses</span>
                             @elseif($pelanggaran->status == 'Selesai')
                                 <span class="badge badge-selesai">Selesai</span>
                             @endif
                         </td>
                         <td>
+<<<<<<< Updated upstream
                             <!-- Status Update Form -->
                             <form action="{{ route('pelanggaran.update_status', $pelanggaran->id) }}" method="POST" class="d-inline-block">
                                 @csrf
@@ -69,6 +73,8 @@
                     <tr>
                         
                         
+=======
+>>>>>>> Stashed changes
                     </tr>
                 </tbody>
             </table>
@@ -76,6 +82,7 @@
     </div>
 </div>
 
+<<<<<<< Updated upstream
 <div class="container mt-5">
   <h4>Tanggapan Sebelumnya</h4>
     @foreach ($pelanggaran->comments as $comment)
@@ -99,8 +106,46 @@
         @endif
     </div>
     @endforeach
+=======
+@if ($pelanggaran->level !== null)
+    <!-- Show comments if level is not null -->
+    <div class="container mt-5">
+        <h4>Tanggapan Sebelumnya</h4>
+        @foreach ($pelanggaran->comments as $comment)
+            <div class="comment mb-3 p-3 border rounded">
+                <p>
+                    <strong>({{ $comment->user->role }}) {{ $comment->user->nama }}</strong>
+                    <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
+                </p>
+                <p>{{ $comment->comment }}</p>
 
+                @if ($comment->file_path)
+                    <p>
+                        <a href="{{ asset('storage/files/' . $comment->file) }}" class="btn btn-sm mt-2" style="background-color: #5AADC2; color: white;" download>
+                            Download Attached File
+                        </a>
+                    </p>
+                @endif
+            </div>
+        @endforeach
+    </div>
+@else
+    <!-- NOTHING -->
+@endif
+>>>>>>> Stashed changes
 
+@if ($pelanggaran->level === null)
+    <!-- NOTHIGN -->
+@elseif ($pelanggaran->level !== "Level 5")
+    @if ($pelanggaran->level == "Level 2" && Auth::user()->role == 'Kemahasiswaan')
+        <form action="{{ route('pelanggaran.storeComment', $pelanggaran->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="mb-3">
+                <label for="comment" class="form-label">Tanggapan:</label>
+                <textarea name="comment" id="comment" class="form-control" rows="4" required>{{ old('comment') }}</textarea>
+            </div>
+
+<<<<<<< Updated upstream
   <form action="{{ route('pelanggaran.storeComment', $pelanggaran->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
 
@@ -117,8 +162,40 @@
     <button type="submit" class="btn btn-primary">Kirim</button>
 </form>
 
+=======
+            <div class="mb-3">
+                <label for="file" class="form-label">Lampirkan File (Opsional):</label>
+                <input type="file" name="file" id="file" class="form-control">
+            </div>
+
+            <div class="form-group mt-3">
+                <!-- Action buttons for level update -->
+                <button type="submit" name="action" value="level_3" class="btn btn-primary">Kirim ke Komdis</button>
+                <button type="submit" name="action" value="level_4" class="btn btn-success">Kirim ke Rektor</button>
+            </div>
+        </form>
+    @else
+        <form action="{{ route('pelanggaran.storeComment', $pelanggaran->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="mb-3">
+                <label for="comment" class="form-label">Tanggapan:</label>
+                <textarea name="comment" id="comment" class="form-control" rows="4" required>{{ old('comment') }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="file" class="form-label">Lampirkan File (Opsional):</label>
+                <input type="file" name="file" id="file" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Kirim</button>
+        </form>
+    @endif
+>>>>>>> Stashed changes
 </div>
+@endif
+
 @endsection
+<<<<<<< Updated upstream
 
 @section('script')
 <script>
@@ -171,3 +248,5 @@
   }
 </script>
 @endsection
+=======
+>>>>>>> Stashed changes

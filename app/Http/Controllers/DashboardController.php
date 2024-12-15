@@ -34,28 +34,29 @@ class DashboardController extends Controller
     }
 
     $user = Auth::user();
+    $pelanggaranQuery = Pelanggaran::with('user', 'listPelanggaran');
 
-    // Fetch pelanggaran data based on role
-    if ($user->role === 'Orang Tua') {
-      $pelanggaran = Pelanggaran::with('user', 'listPelanggaran')
-        ->whereHas('user', function ($query) use ($user) {
-          $query->where('wali', $user->nama);
-        })
-        ->get();
-    } elseif (in_array($user->role, ['Keasramaan', 'Kemahasiswaan'])) {
-      $pelanggaran = Pelanggaran::with('user', 'listPelanggaran')->get();
-    } elseif (in_array($user->role, ['Komisi Disiplin', 'Rektor'])) {
-      $pelanggaran = Pelanggaran::with('user', 'listPelanggaran')
-        ->whereHas('listPelanggaran', function ($query) {
-          $query->where('poin', '>', 25);
-        })
-        ->get();
-    } elseif ($user->role === 'Dosen') {
-      $pelanggaran = Pelanggaran::with('user', 'listPelanggaran')
-        ->whereHas('user', function ($query) use ($user) {
-          $query->where('wali', $user->nama);
-        })
-        ->get();
+    // Filter pelanggaran data based on roles
+    if ($user->role === 'Dosen') {
+      // Dosen Wali: Only see pelanggaran assigned to students where 'wali' matches the Dosen's name
+      $pelanggaran = $pelanggaranQuery->whereHas('user', function ($query) use ($user) {
+        $query->where('wali', $user->nama);
+      })->get();
+    } elseif ($user->role === 'Komisi Disiplin') {
+      // Komisi Disiplin: Only see Level 3
+      $pelanggaran = $pelanggaranQuery->where('level', 'Level 3')->get();
+    } elseif ($user->role === 'Rektor') {
+      // Rektor: See both Level 4 and Level 5
+      $pelanggaran = $pelanggaranQuery->where(function ($query) {
+        $query->where('level', 'Level 4')
+          ->orWhere('level', 'Level 5');
+      })->get();
+    } elseif ($user->role === 'Kemahasiswaan' || $user->role === 'Keasramaan') {
+      // Kemahasiswaan & Keasramaan: View all pelanggaran
+      $pelanggaran = $pelanggaranQuery->get();
+    } else {
+      // Default empty if role doesn't match
+      $pelanggaran = collect();
     }
 
     return view('dashboard.admin', compact('pelanggaran'));

@@ -337,7 +337,7 @@ return [
             'text' => 'Tambah Pelanggaran',
             'url' => 'pelanggaran/add',
             'icon' => 'fas fa-fw fa-file',
-            'can' => 'access-admin',
+            'can' => 'access-kemkem',
         ],
         [
             'text' => 'Update Pelanggaran',
