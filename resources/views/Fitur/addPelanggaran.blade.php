@@ -4,12 +4,12 @@
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-        <!-- Google Fonts (Pastikan font 'Source Sans 3' terimport) -->
-        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3&display=swap" rel="stylesheet">
-        <style>
+    <!-- Google Fonts (Pastikan font 'Source Sans 3' terimport) -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3&display=swap" rel="stylesheet">
+    <style>
         body {
-            font-family: 'Source Sans 3', sans-serif; /* Font */
-            font-size: 15px; /* Ukuran font */
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 15px;
             color: #484444
         }
     </style>
@@ -36,9 +36,12 @@
     </div>
     @endif
 
-    <form action="{{ route('pelanggaran.store') }}" method="POST" class="p-4 rounded" style="max-width: 600px; margin-top: 80px; margin-left: 250px; box-shadow: 0px 0px 30px rgba(90, 173, 194, 0.54)">
+    <!-- Pelanggaran Form -->
+    <form action="{{ route('pelanggaran.store') }}" method="POST" class="p-4 rounded" style="max-width: 600px; margin-top: 80px; margin-left: 250px; box-shadow: 0px 0px 30px rgba(90, 173, 194, 0.54)" enctype="multipart/form-data">
         <h2 class="text-center mb-5">Form Pelanggaran</h2>
-        @csrf  <!-- CSRF Token -->
+        @csrf
+
+        <!-- Angkatan Textbox -->
         <div class="mb-3">
             <label for="angkatan" class="form-label" style="font-weight: normal;">Angkatan:</label>
             <input type="text" name="angkatan" id="angkatan" class="form-control">
@@ -62,7 +65,7 @@
             <input type="text" name="nama" id="nama" class="form-control">
         </div>
 
-        <!-- Poin Pelanggaran Dropdown -->
+        <!-- Jenis Pelanggaran Dropdown -->
         <div class="mb-3">
             <label for="poin_pelanggaran" class="form-label">Jenis Pelanggaran:</label>
             <select name="list_pelanggaran_id" id="poin_pelanggaran" class="form-select">
@@ -78,10 +81,16 @@
             @endif
         </div>
 
-        <!-- test Textbox -->
+        <!-- Laporan Comment Textbox -->
         <div class="mb-3">
             <label for="comment" class="form-label">Laporan:</label>
             <textarea name="comment" id="comment" class="form-control" rows="4" required>{{ old('comment') }}</textarea>
+        </div>
+
+        <!-- File Upload (Optional) -->
+        <div class="mb-3">
+            <label for="file" class="form-label">Lampirkan File (Opsional):</label>
+            <input type="file" name="file" id="file" class="form-control">
         </div>
 
         <!-- Submit Button -->
@@ -99,14 +108,14 @@
     
     <style>
         .form-label {
-        margin-bottom: 4px !important;
-    }
+            margin-bottom: 4px !important;
+        }
 
         .form-control,
         .form-select {
             margin-top: 0 !important;
         }
-        /* Membuat dropdown agar teks panjang dibungkus (wrap) dalam beberapa baris */
+
         #poin_pelanggaran {
             width: 100%;
             max-width: 100%;
@@ -117,42 +126,40 @@
             word-wrap: break-word;
             word-break: break-word;
         }
-        /* Ubah tinggi dropdown */
+
         .select2-container--default .select2-selection--single {
-            height: 30px !important; /* Tinggi dropdown */
-            line-height: 30px !important; /* Vertical alignment */
+            height: 30px !important;
+            line-height: 30px !important;
             align-items: center !important;
             display: flex !important;
         }
 
-        /* Ubah warna opsi saat kursor masuk */
         .select2-results__option--highlighted {
-            background-color: #5AADC2 !important; /* Warna background */
-            color: #fff !important; /* Warna teks */
+            background-color: #5AADC2 !important;
+            color: #fff !important;
         }
 
-        /* Ubah tinggi opsi di dalam dropdown */
         .select2-results__option {
-            padding: 10px !important;/* Jarak dalam opsi */
+            padding: 10px !important;
         }
-            /* Tambahkan latar belakang merah pada tombol clear */
-    .select2-selection__clear {
-        background-color: red !important; /* Warna latar belakang merah */
-        color: white !important; /* Warna teks putih */
-        border-radius: 50%; /* Membuat bentuk bulat */
-        font-size: 12px !important; /* Atur ukuran font */
-        width: 13px; /* Atur lebar tombol */
-        height: 13px; /* Atur tinggi tombol sama dengan lebar */
-        align-items: center; /* Vertikal rata tengah */
-        justify-content: center; /* Horizontal rata tengah */
-        display: flex; /* Menggunakan Flexbox */
-        transform: translateY(60%);
-        margin-left:5px;
-    }
 
-    .select2-selection__clear:hover {
-        background-color: darkred !important; /* Warna latar belakang lebih gelap saat hover */
-    }
+        .select2-selection__clear {
+            background-color: red !important;
+            color: white !important;
+            border-radius: 50%;
+            font-size: 12px !important;
+            width: 13px;
+            height: 13px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            transform: translateY(60%);
+            margin-left: 5px;
+        }
+
+        .select2-selection__clear:hover {
+            background-color: darkred !important;
+        }
     </style>
 @endsection
 
@@ -170,4 +177,3 @@
         });
     </script>
 @endsection
-

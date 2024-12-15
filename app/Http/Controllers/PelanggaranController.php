@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pelanggaran;
-use App\Models\Comment;
 use App\Models\User;
-use App\Models\ListPelanggaran;
+use App\Models\Comment;
+use App\Models\Pelanggaran;
 use Illuminate\Http\Request;
+use App\Models\PelanggaranLog;
+use App\Models\ListPelanggaran;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class PelanggaranController extends Controller
 {
-<<<<<<< Updated upstream
-    public function showPelanggaran()
-=======
     protected function getPoinPelanggaran()
     {
         if (Auth::user()->role === 'Keasramaan') {
@@ -45,6 +43,8 @@ class PelanggaranController extends Controller
             'nim' => 'required|string',
             'nama' => 'required|string',
             'list_pelanggaran_id' => 'required|exists:list_pelanggaran,id',
+            'comment' => 'required|string|max:500', // Validate the comment field
+            'file' => 'nullable|file|mimes:pdf,doc,docx|max:5120', // Optional file validation for comment
         ]);
 
         // Find the user by their details
@@ -77,31 +77,62 @@ class PelanggaranController extends Controller
             }
 
             // Create the pelanggaran record
-            Pelanggaran::create([
+            $pelanggaran = Pelanggaran::create([
                 'user_id' => $user->id,
                 'list_pelanggaran_id' => $request->list_pelanggaran_id,
                 'status' => $status, // Set the status
                 'level' => $level, // Set the process level
             ]);
 
+            // Log the action for creating pelanggaran
+            PelanggaranLog::create([
+                'pelanggaran_id' => $pelanggaran->id,
+                'user_id' => $request->user()->id,
+                'action' => 'Create Pelanggaran',  // Action log changed to 'Create Pelanggaran'
+                'details' => 'A new pelanggaran has been created for the student.',
+            ]);
+
+            // Handle file upload for comment
+            $filePath = null;
+            if ($request->hasFile('file')) {
+                $filePath = $request->file('file')->store('pelanggaran_files', 'public');
+            }
+
+            // Create the comment for the pelanggaran
+            Comment::create([
+                'pelanggaran_id' => $pelanggaran->id,
+                'user_id' => $request->user()->id,
+                'comment' => $request->comment,
+                'file_path' => $filePath,
+            ]);
+
+            // Log the action for comment creation
+            PelanggaranLog::create([
+                'pelanggaran_id' => $pelanggaran->id,
+                'user_id' => $request->user()->id,
+                'action' => 'New Comment Added',
+                'details' => $request->comment,
+            ]);
+
             // Redirect to the dashboard with a success message
-            return redirect()->route('dashboard.admin')->with('success', 'Berhasil membuat pelanggaran!');
+            return redirect()->route('dashboard.admin')->with('success', 'Pelanggaran berhasil dibuat dan komentar berhasil ditambahkan!');
         } catch (\Exception $e) {
             // Log the error and redirect back with an error message
-            Log::error('Gagal membuat pelanggaran: ' . $e->getMessage());
+            Log::error('Gagal membuat pelanggaran atau komentar: ' . $e->getMessage());
 
             return redirect()->route('pelanggaran.create')->withErrors([
-                'general' => 'ERROR terjadi ketika membuat Pelanggaran baru. Silahkan coba lagi.',
+                'general' => 'Terjadi kesalahan saat membuat Pelanggaran atau menambahkan komentar. Silakan coba lagi.',
             ])->withInput();
         }
     }
 
     public function showPelanggaranMhs()
->>>>>>> Stashed changes
     {
         $userId = Auth::id();
 
-        $pelanggaranList = Pelanggaran::where('user_id', $userId)->get();
+        $pelanggaranList = Pelanggaran::where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('fitur.detailMahasiswa', compact('pelanggaranList'));
     }
@@ -111,30 +142,27 @@ class PelanggaranController extends Controller
         // Fetch the pelanggaran record with related comments, user, and listPelanggaran data
         $pelanggaran = Pelanggaran::with(['user', 'listPelanggaran', 'comments.user'])->findOrFail($id);
 
-<<<<<<< Updated upstream
-        // Pass the data to the view
-=======
         // Get the level attribute and the currently authenticated user
         $level = $pelanggaran->level;
         $user = Auth::user();
 
-        if ($level == "Level 1" && $user->role !== 'Dosen') {
-            abort(403, 'Unauthorized action.');
+        // Check for unauthorized access based on the level and user role
+        if ($user->role === 'Dosen' && $level !== 'Level 1') {
+            // Dosen can only view Level 1
+            return view('fitur.detailAdmin-no-response', compact('pelanggaran'));
         }
 
-        if ($level == "Level 2" && $user->role !== 'Kemahasiswaan') {
-            abort(403, 'Unauthorized action.');
+        if ($user->role === 'Komisi Disiplin' && in_array($level, ['Level 4', 'Level 5'])) {
+            // Komisi Disiplin cannot view Level 4 or Level 5
+            return view('fitur.detailAdmin-no-response', compact('pelanggaran'));
         }
 
-        if ($level == "Level 3" && $user->role !== 'Komisi Disiplin') {
-            abort(403, 'Unauthorized action.');
+        if ($user->role === 'Kemahasiswaan' && in_array($level, ['Level 1', 'Level 3', 'Level 4'])) {
+            // Kemahasiswaan cannot view Level 1, Level 3, or Level 4
+            return view('fitur.detailAdmin-no-response', compact('pelanggaran'));
         }
 
-        if ($level == "Level 4" && $user->role !== 'Rektor') {
-            abort(403, 'Unauthorized action.');
-        }
-
->>>>>>> Stashed changes
+        // If authorized, show the comments page
         return view('fitur.detailPelanggaran', compact('pelanggaran'));
     }
 
@@ -160,45 +188,6 @@ class PelanggaranController extends Controller
             'file_path' => $filePath,
         ]);
 
-<<<<<<< Updated upstream
-        return redirect()->route('pelanggaran.showComments', $pelanggaran->id)
-            ->with('success', 'Berhasil membuat tanggapan!');
-    }
-
-    public function create()
-    {
-        // Fetch data for dropdowns or other needs, if necessary
-        $poinPelanggaran = ListPelanggaran::all();
-
-        // Return the form view
-        return view('fitur.addPelanggaran', compact('poinPelanggaran'));
-    }
-
-    public function store(Request $request)
-    {
-        // Validate the request
-        $validatedData = $request->validate([
-            'angkatan' => 'required|string',
-            'prodi' => 'required|string',
-            'nim' => 'required|string',
-            'nama' => 'required|string',
-            'list_pelanggaran_id' => 'required|exists:list_pelanggaran,id',
-        ]);
-
-        // Attempt to find the user
-        $user = User::where('angkatan', $request->angkatan)
-            ->where('prodi', $request->prodi)
-            ->where('nim', $request->nim)
-            ->where('nama', $request->nama)
-            ->first();
-
-        // Check if the user exists and has the correct role
-        if (!$user || $user->role !== 'Orang Tua') {
-            // Redirect back with error messages
-            return redirect()->route('pelanggaran.create')->withErrors([
-                'user' => 'Mahasiswa tidak ditemukan!',
-            ])->withInput();
-=======
         // Log the action for comment creation
         PelanggaranLog::create([
             'pelanggaran_id' => $pelanggaran->id,
@@ -217,7 +206,6 @@ class PelanggaranController extends Controller
                 'action' => 'Level Updated',
                 'details' => 'Level changed to Level 2 by Dosen Wali',
             ]);
->>>>>>> Stashed changes
         }
 
         // Check if the user is 'Rektor' and the current level is 'Level 4'
@@ -325,9 +313,6 @@ class PelanggaranController extends Controller
         $pelanggaran->status = $request->input('status');
         $pelanggaran->save();
 
-<<<<<<< Updated upstream
-        return back()->with('success', 'Berhasil mengubah status pelanggaran!.');
-=======
         // Check if the status has changed
         if ($pelanggaran->status !== $request->status) {
             $oldStatus = $pelanggaran->status;
@@ -348,6 +333,5 @@ class PelanggaranController extends Controller
 
         return redirect()->route('pelanggaran.showComments', $id)
             ->with('info', 'Tidak ada perubahan status.');
->>>>>>> Stashed changes
     }
 }

@@ -50,63 +50,25 @@
     <div class="container mt-5">
         <h4>Tanggapan Sebelumnya</h4>
         @foreach ($pelanggaran->comments as $comment)
-        <div class="comment mb-3 p-3 border rounded">
-            <p>
-                <strong>({{ $comment->user->role }}) {{ $comment->user->nama }}</strong>
-                <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
-            </p>
-            <p>{{ $comment->comment }}</p>
-
-            @if ($comment->file_path)
+            <div class="comment mb-3 p-3 border rounded">
                 <p>
-                    <a href="{{ asset('storage/files/' . $comment->file) }}" class="btn btn-sm mt-2" style="background-color: #5AADC2; color: white;" download>
-                        Download Attached File
-                    </a>
+                    <strong>({{ $comment->user->role }}) {{ $comment->user->nama }}</strong>
+                    <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
                 </p>
-            @endif
-        </div>
+                <p>{{ $comment->comment }}</p>
+
+                @if ($comment->file_path)
+                    <p>
+                        <a href="{{ asset('storage/files/' . $comment->file) }}" class="btn btn-sm mt-2" style="background-color: #5AADC2; color: white;" download>
+                            Download Attached File
+                        </a>
+                    </p>
+                @endif
+            </div>
         @endforeach
     </div>
-@endif
-
-@if ($pelanggaran->level === null)
+@else
     <!-- NOTHING -->
-@elseif ($pelanggaran->level !== "Level 5")
-    @if ($pelanggaran->level == "Level 2" && Auth::user()->role == 'Kemahasiswaan')
-        <form action="{{ route('pelanggaran.storeComment', $pelanggaran->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="mb-3">
-                <label for="comment" class="form-label">Tanggapan:</label>
-                <textarea name="comment" id="comment" class="form-control" rows="4" required>{{ old('comment') }}</textarea>
-            </div>
-
-            <div class="mb-3">
-                <label for="file" class="form-label">Lampirkan File (Opsional):</label>
-                <input type="file" name="file" id="file" class="form-control">
-            </div>
-
-            <div class="form-group mt-3">
-                <!-- Action buttons for level update -->
-                <button type="submit" name="action" value="level_3" class="btn btn-primary">Kirim ke Komdis</button>
-                <button type="submit" name="action" value="level_4" class="btn btn-success">Kirim ke Rektor</button>
-            </div>
-        </form>
-    @else
-        <form action="{{ route('pelanggaran.storeComment', $pelanggaran->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="mb-3">
-                <label for="comment" class="form-label">Tanggapan:</label>
-                <textarea name="comment" id="comment" class="form-control" rows="4" required>{{ old('comment') }}</textarea>
-            </div>
-
-            <div class="mb-3">
-                <label for="file" class="form-label">Lampirkan File (Opsional):</label>
-                <input type="file" name="file" id="file" class="form-control">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Kirim</button>
-        </form>
-    @endif
 @endif
 
 @endsection
