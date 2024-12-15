@@ -24,7 +24,7 @@
                         <td>{{ $pelanggaran->created_at->format('d-m-Y') }}</td>
                         <td>
                             @if($pelanggaran->status == 'Sedang diproses')
-                                <span>Kasus belum diproses</span>
+                                <span>Kasus sedang diproses</span>
                             @elseif($pelanggaran->status == 'Selesai')
                                 <span>Kasus sudah selesai diproses</span>
                             @endif
@@ -37,39 +37,46 @@
 </div>
 
 <div class="container mt-5">
-  <div class="timeline">
-      @foreach ($pelanggaranLogs as $log)
-          <div class="timeline-item">
-              <div class="timeline-date">
-                  {{ \Carbon\Carbon::parse($log->created_at)->format('d M Y, H:i') }}
-              </div>
-              <div class="timeline-content">
-                  <p>
-                      {{ $log->user_role }} : {{ $log->user_nama }}
-                  </p>
-
-                  @if($log->action === 'New Comment Added')
-                      <p>
-                        {{ $log->details }}
-                      </p>
-                      <a href="{{ route('pelanggaranMahasiswa.detail', $log->pelanggaran_id) }}" 
-                          class="btn btn-sm mt-2" 
-                          style="background-color: #5AADC2; color: white;">
-                          Lihat
-                      </a>
-
-                  @elseif($log->action === 'Update Status')
-                      @if(str_contains($log->details, "to 'Diperiksa'"))
-                          sedang memeriksa kasus pelanggaran
-                      @elseif(str_contains($log->details, "to 'Selesai'"))
-                          menutup kasus pelanggaran
-                      @endif
-
-                  @endif
-              </div>
-          </div>
-      @endforeach
-  </div>
-</div>
+    <div class="timeline">
+        @foreach ($pelanggaranLogs as $log)
+            <div class="timeline-item">
+                <div class="timeline-date">
+                    {{ \Carbon\Carbon::parse($log->created_at)->format('d M Y, H:i') }}
+                </div>
+                <div class="timeline-content">
+                    <p>
+                        {{ $log->user_role }} : {{ $log->user_nama }}
+                    </p>
+  
+                    @switch($log->action)
+                        @case('Create Pelanggaran')
+                            <p>{{ $log->details }}</p>
+                            @break
+  
+                        @case('New Comment Added')
+                            <p>{{ $log->details }}</p>
+                            <a href="{{ route('pelanggaranMahasiswa.detail', $log->pelanggaran_id) }}" 
+                               class="btn btn-sm mt-2" 
+                               style="background-color: #5AADC2; color: white;">
+                               Lihat
+                            </a>
+                            @break
+  
+                        @case('Update Status')
+                            @if(str_contains($log->details, "to 'Diperiksa'"))
+                                <p>Sedang memeriksa kasus pelanggaran</p>
+                            @elseif(str_contains($log->details, "to 'Selesai'"))
+                                <p>Menutup kasus pelanggaran</p>
+                            @endif
+                            @break
+  
+                        @default
+                            <p>Unknown action</p>
+                    @endswitch
+                </div>
+            </div>
+        @endforeach
+    </div>
+</div>  
 
 @endsection

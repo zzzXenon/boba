@@ -84,14 +84,6 @@ class PelanggaranController extends Controller
                 'level' => $level, // Set the process level
             ]);
 
-            // Log the action for creating pelanggaran
-            PelanggaranLog::create([
-                'pelanggaran_id' => $pelanggaran->id,
-                'user_id' => $request->user()->id,
-                'action' => 'Create Pelanggaran',  // Action log changed to 'Create Pelanggaran'
-                'details' => 'A new pelanggaran has been created for the student.',
-            ]);
-
             // Handle file upload for comment
             $filePath = null;
             if ($request->hasFile('file')) {
@@ -110,7 +102,7 @@ class PelanggaranController extends Controller
             PelanggaranLog::create([
                 'pelanggaran_id' => $pelanggaran->id,
                 'user_id' => $request->user()->id,
-                'action' => 'New Comment Added',
+                'action' => 'Create Pelanggaran',
                 'details' => $request->comment,
             ]);
 
@@ -130,11 +122,36 @@ class PelanggaranController extends Controller
     {
         $userId = Auth::id();
 
+        // Get the list of violations (pelanggaran) for the authenticated user
         $pelanggaranList = Pelanggaran::where('user_id', $userId)
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('fitur.detailMahasiswa', compact('pelanggaranList'));
+        // Return to the view
+        return view('fitur.pelanggaranMahasiswa', compact('pelanggaranList'));
+    }
+
+    public function showDetailMahasiswa($id)
+    {
+        // Retrieve the pelanggaran record by its ID
+        $pelanggaran = Pelanggaran::findOrFail($id);
+
+        // Fetch logs with user data (role and name) using a join on the 'users' table
+        $pelanggaranLogs = PelanggaranLog::where('pelanggaran_id', $id)
+            ->join('users', 'pelanggaran_logs.user_id', '=', 'users.id')  // Join the 'users' table
+            ->select(
+                'pelanggaran_logs.*',  // Select all columns from pelanggaran_logs
+                'users.nama as user_nama',  // Select 'nama' as 'user_nama' from the users table
+                'users.role as user_role'  // Select 'role' as 'user_role' from the users table
+            )
+            ->orderBy('pelanggaran_logs.created_at', 'desc')
+            ->get();
+
+        // Pass the data to the view
+        return view('fitur.detailMahasiswa', [
+            'pelanggaran' => $pelanggaran,
+            'pelanggaranLogs' => $pelanggaranLogs
+        ]);
     }
 
     public function showComments($id)
