@@ -86,7 +86,7 @@ class DashboardController extends Controller
   public function search(Request $request)
   {
     $request->validate([
-      'kategori' => 'required|string|in:nama,nim,status',
+      'kategori' => 'required|string|in:nama,nim,status,nama_pelanggaran',
       'search' => 'required|string',
     ]);
 
@@ -118,14 +118,18 @@ class DashboardController extends Controller
       case 'status':
         $query->where('status', 'like', "%{$search}%");
         break;
-        // Tambahkan kategori lain jika diperlukan
+      case 'nama_pelanggaran':
+        $query->whereHas('listPelanggaran', function ($q) use ($search) {
+          $q->where('nama_pelanggaran', 'like', "%{$search}%");
+        });
+        break;
     }
 
     $pelanggaran = $query->orderBy('created_at', 'desc')->paginate(10);
 
     // Tentukan view berdasarkan role
     if ($user->role === 'Orang Tua') {
-      return view('dashboard.orangtua', compact('pelanggaran', 'user'));
+      return view('pelanggaranMahasiswa', compact('pelanggaran', 'user'));
     } else {
       return view('dashboard.admin', compact('pelanggaran'));
     }

@@ -11,6 +11,24 @@
 
 <div class="container mt-2">
     <div class="card-body p-4">
+        <form action="{{ route('pelanggaran.search') }}" method="GET" class="mb-4" style="text-align: right;">
+            <div class="form-inline d-flex justify-content-end">
+                <div class="form-group mr-2">
+                    <select name="kategori" class="form-control select2" required>
+                        <option value="">Pilih Kategori</option>
+                        <option value="nama_pelanggaran">Pelanggaran</option>
+                        <option value="status">Status</option>
+                    </select>
+                </div>
+                <div class="form-group mr-2">
+                    <input type="text" name="search" class="form-control" placeholder="Masukkan kata kunci" style="width: 250px;" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn" style="background-color: #5AADC2; color:#fff;">Cari</button>
+                </div>
+            </div>
+        </form>
+
         <table class="table text-center" style="border-collapse: separate; border-spacing: 0; width: 100%;">
             <thead>
                 <tr style="background-color: #5AADC2; color: #fff; border-radius: 10px; box-shadow: 0px 4px 4px rgba(90, 173, 194, 0.16)">

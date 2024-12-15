@@ -7,6 +7,8 @@
 @endpush
 
 @section('content')
+<h3 class="title text-center mb-4 pt-5 pb-1" style="color: #333;">Detail Pelanggaran</h3>
+
 <div class="container mt-5">
     <div class="card border-0" style="border-radius: 7px; background-color: #E4E9EF; box-shadow: 0px 6px 8px rgba(0, 111, 255, 0.25);">
         <div class="card-body p-4">

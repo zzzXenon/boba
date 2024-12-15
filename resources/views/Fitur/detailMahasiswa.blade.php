@@ -2,6 +2,10 @@
 
 @section('title', 'List Pelanggaran')
 
+@push('css')
+    <link rel="stylesheet" href="{{ asset('css/detail-mahasiswa.css') }}">
+@endpush
+
 @section('content')
 <div class="container mt-5">
     <div class="card border-0" style="border-radius: 7px; background-color: #E7FAFF; box-shadow: 0px 4px 4px rgba(90, 173, 194, 0.54)">
