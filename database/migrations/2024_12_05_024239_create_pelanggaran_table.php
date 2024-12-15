@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id'); // Foreign Key ke tabel users
             $table->unsignedBigInteger('list_pelanggaran_id'); // Foreign Key ke tabel list_pelanggaran
-            $table->enum('status', ['Sedang diproses', 'Selesai'])->default('Sedang diproses');
-            $table->enum('level', ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5'])->nullable();
+            $table->enum('status', ['Belum Diperiksa', 'Diperiksa', 'Selesai'])->default('Belum Diperiksa');
             $table->timestamps();
 
             // Menambahkan foreign key
