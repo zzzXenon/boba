@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Policies\RolePolicy;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,11 +28,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('access-kemahasiswaan', [RolePolicy::class, 'accessKemahasiswaan']);
         Gate::define('access-admin', [RolePolicy::class, 'accessAdmin']);
         Gate::define('access-kemkem', [RolePolicy::class, 'accessKemKem']);
-<<<<<<< Updated upstream
-=======
+
         Blade::directive('favicon', function () {
             return '<link rel="icon" href="' . asset('img/icon.ico') . '" type="image/x-icon">';
         });
->>>>>>> Stashed changes
     }
 }

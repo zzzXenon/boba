@@ -43,10 +43,6 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('pelanggaran')->group(function () {
         Route::get('/add', [PelanggaranController::class, 'create'])->name('pelanggaran.create');
         Route::post('/add', [PelanggaranController::class, 'store'])->name('pelanggaran.store');
-<<<<<<< Updated upstream
-        Route::get('/', [PelanggaranController::class, 'index'])->name('pelanggaran.index');
-    });
-=======
         Route::get('/{id}/comments', [PelanggaranController::class, 'showComments'])->name('pelanggaran.showComments');
         Route::post('/{id}/comments', [PelanggaranController::class, 'storeComment'])->name('pelanggaran.storeComment');
         Route::get('/update', [PelanggaranController::class, 'updatePelanggaran'])->name('updatePelanggaran');
@@ -61,7 +57,6 @@ Route::middleware(['auth'])->group(function () {
     // Detail Mahasiswa Route
     Route::get('/pelanggaran-mahasiswa', [PelanggaranController::class, 'showPelanggaranMhs'])->name('pelanggaranMahasiswa');
     Route::get('/pelanggaran-mahasiswa/{id}/', [PelanggaranController::class, 'showDetailMahasiswa'])->name('pelanggaranMahasiswa.detail');
->>>>>>> Stashed changes
 });
 
 // Route::middleware(['auth'])->group(function () {
