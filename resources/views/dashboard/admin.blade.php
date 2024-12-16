@@ -64,6 +64,7 @@
                         <option value="">Pilih Kategori</option>
                         <option value="nama">Nama</option>
                         <option value="nim">NIM</option>
+                        <option value="nama_pelanggaran">Pelanggaran</option>
                         <option value="status">Status</option>
                     </select>
                 </div>

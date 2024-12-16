@@ -1,17 +1,9 @@
-@extends('adminlte::page') 
+@extends('adminlte::page')
 
-@section('title', 'Detail Pelanggaran')
+@section('title', 'List Pelanggaran')
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/detail-mahasiswa.css') }}">
-@endpush
-
-<!-- SweetAlert2 CDN -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-@push('css')
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/status.css') }}">
 @endpush
 
 @section('content')
@@ -23,8 +15,8 @@
                     <tr>
                         <th style="max-width: 200px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">Pelanggaran</th>
                         <th style="max-width: 80px; word-wrap: break-word;">Poin</th>
+                        <th style="max-width: 30px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">Tanggal</th>
                         <th style="max-width: 100px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">Status</th>
-                        <th style="max-width: 30px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">Tanggal</th>                       
                     </tr>
                 </thead>
                 <tbody>
@@ -35,10 +27,7 @@
                         <td style="max-width: 80px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">{{ $pelanggaran->listPelanggaran->poin }}</td>
                         <td>{{ $pelanggaran->created_at->format('d-m-Y') }}</td>
                         <td>
-                            <!-- Status Badge -->
-                            @if($pelanggaran->status == 'Belum Diperiksa')
-                                <span>Kasus belum diproses</span>
-                            @elseif($pelanggaran->status == 'Diperiksa')
+                            @if($pelanggaran->status == 'Sedang diproses')
                                 <span>Kasus sedang diproses</span>
                             @elseif($pelanggaran->status == 'Selesai')
                                 <span>Kasus sudah selesai diproses</span>
@@ -52,40 +41,46 @@
 </div>
 
 <div class="container mt-5">
-  <div class="timeline">
-      @foreach ($pelanggaranLogs as $log)
-          <div class="timeline-item">
-              <div class="timeline-date">
-                  {{ \Carbon\Carbon::parse($log->created_at)->format('d M Y, H:i') }}
-              </div>
-              <div class="timeline-content">
-                  <p>
-                      {{ $log->user_role }} : {{ $log->user_nama }}
-                  </p>
-
-                  @if($log->action === 'New Comment Added')
-                      <p>
-                        {{ $log->details }}
-                      </p>
-                      <a href="{{ route('pelanggaranMahasiswa.detail', $log->pelanggaran_id) }}" 
-                          class="btn btn-sm mt-2" 
-                          style="background-color: #5AADC2; color: white;">
-                          Lihat
-                      </a>
-                      
-
-                  @elseif($log->action === 'Update Status')
-                      @if(str_contains($log->details, "to 'Diperiksa'"))
-                          sedang memeriksa kasus pelanggaran
-                      @elseif(str_contains($log->details, "to 'Selesai'"))
-                          menutup kasus pelanggaran
-                      @endif
-
-                  @endif
-              </div>
-          </div>
-      @endforeach
-  </div>
-</div>
+    <div class="timeline">
+        @foreach ($pelanggaranLogs as $log)
+            <div class="timeline-item">
+                <div class="timeline-date">
+                    {{ \Carbon\Carbon::parse($log->created_at)->format('d M Y, H:i') }}
+                </div>
+                <div class="timeline-content">
+                    <p>
+                        {{ $log->user_role }} : {{ $log->user_nama }}
+                    </p>
+  
+                    @switch($log->action)
+                        @case('Create Pelanggaran')
+                            <p>{{ $log->details }}</p>
+                            @break
+  
+                        @case('New Comment Added')
+                            <p>{{ $log->details }}</p>
+                            <a href="{{ route('pelanggaranMahasiswa.detail', $log->pelanggaran_id) }}" 
+                               class="btn btn-sm mt-2" 
+                               style="background-color: #5AADC2; color: white;">
+                               Lihat
+                            </a>
+                            @break
+  
+                        @case('Update Status')
+                            @if(str_contains($log->details, "to 'Diperiksa'"))
+                                <p>Sedang memeriksa kasus pelanggaran</p>
+                            @elseif(str_contains($log->details, "to 'Selesai'"))
+                                <p>Menutup kasus pelanggaran</p>
+                            @endif
+                            @break
+  
+                        @default
+                            <p>Unknown action</p>
+                    @endswitch
+                </div>
+            </div>
+        @endforeach
+    </div>
+</div>  
 
 @endsection
