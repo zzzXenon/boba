@@ -12,7 +12,6 @@ class Pelanggaran extends Model
         'user_id',
         'list_pelanggaran_id',
         'status',
-        'level',
     ];
 
     // Relationships
@@ -28,6 +27,6 @@ class Pelanggaran extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class)->orderBy('created_at', 'desc');
+        return $this->hasMany(Comment::class);
     }
 }
